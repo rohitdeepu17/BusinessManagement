@@ -64,7 +64,7 @@ include 'connect_my_sql_db.php';
     	</div>
     	
     	<label class="smalllabel"><b>Invoice Date</b></label>
-    	<input class="smallinput" type="date" name="bdate" required>
+    	<input class="smallinput" type="date" name="bdate" style="width:150px;" required>
     	
     	<!-- TABLE starts here -->
     	<table id="my_table_id" name="billitems">
@@ -80,7 +80,7 @@ include 'connect_my_sql_db.php';
     		<tr class="clone_this">
        			<td>1.</td>
        			<td>
-       			<select style="width:80px;" class="gr" name="categories[]">
+       			<select style="width:150px;" class="gr" name="categories[]">
        				<option value="Select Category">Select Category</option>		
     				<?php 
 						include 'connect_my_sql_db.php';
@@ -91,7 +91,7 @@ include 'connect_my_sql_db.php';
 						echo ("<option value='$data[1]'>$data[1]</option>");
 					}
 					?></td>
-       			<td class="sub_item"><select style="width:100px;" class="it_id" name="products[]">
+       			<td class="sub_item"><select style="width:150px;" class="it_id" name="products[]">
        				<option value="Select Product">Select Product</option>
 				</td>
 				<td><input class="qty" type="number" step="0.01" placeholder="ex: 12.50" name="qty[]" value="0.00" required onkeyup="updatePrice(this.value)"></td>
@@ -102,19 +102,24 @@ include 'connect_my_sql_db.php';
     		
  		</table>
  		
- 		<input type="button" value="Add more items" id="more_items" /><br>
+ 		<input type="button" value="Add more items" id="more_items" style="margin-top:10px; margin-bottom:20px"/><br>
  		
- 		<tr>
-				<td>Total Amount</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><input class="total_amount" type="number" step="0.01" placeholder="will be calculated" name="total_amount" value="0.00" required disabled></td>
-				<td><input class="total_discount" type="number" step="0.01" placeholder="if any" name="total_discount" value="0.00" required></td>
-				<td><input class="paid_amount" type="number" step="0.01" placeholder="if any" name="total_paid" value="0.00" required></td>
-				
-    	</tr>
+ 		<span class="sameline">
+				<label class="smalllabel" style="width:100px;">Total Amount</label>
+				<input class="total_amount" id="total_amount "type="number" step="0.01" placeholder="will be calculated" name="total_amount" value="0.00" required readonly="readonly"></td>
+    	</span><br><br>
+    	<span class="sameline">
+				<label class="smalllabel" style="width:100px;">Discount</label>
+				<input class="total_discount" type="number" step="0.01" placeholder="if any" name="total_discount" value="0.00" required>
+    	</span><br><br>
+    	<span class="sameline">
+				<label class="smalllabel" style="width:100px;">Paid Amount</label>
+				<input class="paid_amount" type="number" step="0.01" placeholder="if any" name="total_paid" value="0.00" required>
+    	</span><br><br>
+    	<div class="sameline">
+				<label class="smalllabel" style="width:100px;">Balance</label>
+				<input class="balance_amount" type="number" step="0.01" placeholder="if any" name="balance_amt" value="0.00" required>
+    	</div><br><br>
  		<button type="submit">SUBMIT</button>
   	</div>
   	</fieldset>
@@ -125,6 +130,11 @@ include 'connect_my_sql_db.php';
 
 <script>
 
+/*$(".qty").on("keydown", function () {
+		alert("onkeydown qty");
+		$('#total_amount').val(1);
+});*/
+
 $(".qty").on("keyup", function () {
     	var $this = $(this);
 		$tr = $this.closest('tr');
@@ -132,6 +142,9 @@ $(".qty").on("keyup", function () {
 		unitprice_val = $tr.find('.unit_price').val();
 		amount = qty_val*unitprice_val;
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
+		//$('#total_amount').val(amount);
+		//$(this).find('.total_amount').attr("value",amount);
+		//$(this).find('.total_discount').val(amount);
 });
 
 $(".unit_price").on("keyup", function () {
