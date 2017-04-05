@@ -1,0 +1,7 @@
+Name;Type
+Ben 10 Watch;Battery Toys
+Angry Birds Gun;Mechanical Toys
+Remote Car;Remote Toys
+Uno Cards;Card Game
+Keyboard;Musical Toys
+Jigsaws;Board Game

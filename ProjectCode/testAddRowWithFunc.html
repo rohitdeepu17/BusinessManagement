@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+<form action="#" method="POST" id="submit_item">
+    <input type="text" name="contract_id" value="" id="contract_id2" />
+    <table>
+        <tr>
+            <th>Group Item</th>
+            <th>Nama Item</th>
+            <th>Harga</th>
+            <th>Kuantiti</th>
+            <th>Amount</th>
+        </tr>
+        <tr class="clone_this">
+            <td>
+                <select name='group' style="width:80px;" class="gr">
+                    <option>Choose group</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </td>
+            <td class="sub_item">
+                <select name='item' style="width:100px;" class="it_id"></select>
+            </td>
+            <td>
+                <input type="text" name="harga_<?php echo $i;?>[]" id="<?php echo $i;?>" value="" class="harga" />
+            </td>
+            <td>
+                <input type='text' size='2' value="" name='qty[]' class='qty' />
+            </td>
+            <td>
+                <input type="text" name="amount[]" class="amount" value="" />
+            </td>
+        </tr>
+        <tr id="last_e">
+            <td colspan="3">
+                <input type="submit" name="submit" value="Next" id="item_s" />
+            </td>
+            <td>
+                <input type="button" value="Add more items" id="more_items" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script>
+	$(document).ready(function () {
+    
+    $('#submit_item').on('keyup', '.qty, .harga', function () {
+        var $tr= $(this).closest('tr');
+        
+        $tr.find('.amount').val($tr.find('.harga').val() * $tr.find('.qty').val() || 0)
+    })
+
+    $(".sub_item").hide();
+    $('#submit_item').on('change', '.gr', function () {
+
+        var $this = $(this),
+            $tr = $this.closest('tr'),
+            gr_id = $this.find('option:selected').val(),
+            $subitem = $tr.find('.sub_item'),
+            $it_id = $tr.find('.it_id');
+
+        var agency_id = '1';
+
+        /*show branch for selected department starts*/
+        var data;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/echo/json/',
+            data: {
+                json: JSON.stringify([{
+                    item_id: 1,
+                    item_name: 'a-' + gr_id
+                }, {
+                    item_id: 2,
+                    item_name: 'b-' + gr_id
+                }, {
+                    item_id: 3,
+                    item_name: 'c-' + gr_id
+                }])
+            },
+            success: function (data) {
+                $subitem.show();
+                $it_id.empty();
+                for (i = 0; i < data.length; i++) {
+                    $it_id.append("<option value='" + data[i].item_id + "'>" + data[i].item_name + "</option>");
+                }
+                if (data.length == "") {
+                    $it_id.append("<option>No items found</option>");
+                }
+
+                console.log(data);
+            }
+        }); //end success
+
+        /*show branch ends*/
+    });
+});
+
+
+$("#more_items").on("click", function () {
+    alert("Hi");
+    $(".clone_this").clone(true, true).insertBefore("#last_e");
+});
+
+
+$(function () {
+    $("#hide1").hide();
+    $("#hide2").hide();
+    $("#hide3").hide();
+    $('#faktor').change(function () {
+
+        var val = $(this).val();
+        //alert($(this).val());
+        if ($.trim(val) == 1) {
+            $("#hide1").show();
+        } else {
+            $("#hide1").hide();
+        }
+    });
+    $('#insurance').change(function () {
+        $("#hide2").show();
+        var val = $(this).val();
+        //alert($(this).val());
+        if ($.trim(val) == 1) {
+            $("#hide2").show();
+        } else {
+            $("#hide2").hide();
+        }
+    });
+    $('#bon').change(function () {
+        $("#hide3").show();
+        var val = $(this).val();
+        //alert($(this).val());
+        if ($.trim(val) == 1) {
+            $("#hide3").show();
+        } else {
+            $("#hide3").hide();
+        }
+    });
+});
+</script>
+
+</body>
+</html>

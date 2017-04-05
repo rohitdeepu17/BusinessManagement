@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<style>
+</style>
+<body>
+<link href="css/allstyles.css" rel="stylesheet" type="text/css" />
+<h2>Login Form</h2>
+
+<form action="session_check.php" method="post">
+  <div>
+  	<div class="imgcontainer">
+    	<img src="MTC.png" alt="Avatar" class="avatar">
+  	</div>
+
+  	<div class="container">
+  		
+    	<label><b>Username</b></label>
+    	<input type="text" placeholder="Enter Username" name="uname" required>
+
+    	<label><b>Password</b></label>
+    	<input type="password" placeholder="Enter Password" name="psw" required>
+        
+    	<button type="submit">Login</button>
+    	<input type="checkbox" checked="checked"> Remember me
+  	</div>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="submit" class="cancelbtn" formaction="/action_cancel.php">Cancel</button>
+    <span class="psw"><a href="#">Forgot password?</a></span>
+  </div>
+  
+</form>
+
+</body>
+</html>

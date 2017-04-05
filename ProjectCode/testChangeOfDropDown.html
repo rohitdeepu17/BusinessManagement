@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <pre>Enter in a valid year (any 4-digit number will do)</pre>
+  <!-- Assumes a valid year is entered -->
+  <input name="Year" type="text" value="" />
+  <select name="Results">
+     <option selected="selected" value="">please choose:</option>
+     <option value="300" data-under-18="100" data-over-18="300">300.-</option>
+     <option value="500" data-under-18="200" data-over-18="500">500.-</option>
+     <option value="1000" data-under-18="300" data-over-18="1000">1000.-</option>
+     <option value="1500" data-under-18="400" data-over-18="1500">1500.-</option>
+     <option value="2000" data-under-18="500" data-over-18="2000">2000.-</option>
+     <option value="2500" data-under-18="600" data-over-18="2500">2500.-</option>
+  </select>
+  <script>
+        $(function(){
+            // When your year changes...
+            $('[name="Year"]').change(function(){
+                // Check that the value is a year (assumes 4 digit number)
+                if(/^\d{4}/.test($(this).val())){
+                    // Parse the value
+                    var year = parseInt($(this).val());
+                    // Determine the user's age
+                    var age =  new Date().getFullYear() - year;
+                    // Use the data attributes to set each value (ignore the first one)
+                    $('[name="Results"] option:not(:first)').each(function(){
+                        var valueToUse = (age >= 18) ? $(this).attr('data-over-18') : $(this).attr('data-under-18');
+                        debugger;
+                        $(this).val(valueToUse).text(valueToUse + '.-');
+                    });
+                }                
+                else{
+                  alert('Please enter a year! (any 4-digit number will do)');
+                  $(this).val('').focus();
+                }
+            })
+        })
+      </script>
+</body>
+</html>
+
+<!-- https://stackoverflow.com/questions/36876801/multiple-lines-for-change-dropdown-values-based-on-input-in-textfield -->

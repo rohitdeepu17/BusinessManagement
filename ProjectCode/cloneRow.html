@@ -1,0 +1,40 @@
+<html>
+
+<head>
+  <script type="text/javascript">
+    function cloneRow() {
+      var row = document.getElementById("rowToClone"); // find row to copy
+      var table = document.getElementById("tableToModify"); // find table to append to
+      var clone = row.cloneNode(true); // copy children too
+      clone.id = "newID"; // change id or other attributes/contents
+      table.appendChild(clone); // add new row to end of table
+    }
+
+    function createRow() {
+      var row = document.createElement('tr'); // create row node
+      var col = document.createElement('td'); // create column node
+      var col2 = document.createElement('td'); // create second column node
+      row.appendChild(col); // append first column to row
+      row.appendChild(col2); // append second column to row
+      col.innerHTML = "qwe"; // put data in first column
+      col2.innerHTML = "rty"; // put data in second column
+      var table = document.getElementById("tableToModify"); // find table to append to
+      table.appendChild(row); // append row to table
+    }
+  </script>
+</head>
+
+<body>
+  <input type="button" onclick="cloneRow()" value="Clone Row" />
+  <input type="button" onclick="createRow()" value="Create Row" />
+  <table>
+    <tbody id="tableToModify">
+      <tr id="rowToClone">
+        <td>foo</td>
+        <td>bar</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>

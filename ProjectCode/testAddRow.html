@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <table id="maintable">
+    <tr class='person-row'>
+      <td class='person-number'>
+        1:
+      </td>
+      <td>
+        <input class='person-year' name="Year1" type="text" value="" />
+      </td>
+      <td>
+        <select class='person-value' name="Results1">
+          <option selected="selected" value="">please choose:</option>
+          <option value="300" data-under-18="100" data-over-18="300">300.-</option>
+          <option value="500" data-under-18="200" data-over-18="500">500.-</option>
+          <option value="1000" data-under-18="300" data-over-18="1000">1000.-</option>
+          <option value="1500" data-under-18="400" data-over-18="1500">1500.-</option>
+          <option value="2000" data-under-18="500" data-over-18="2000">2000.-</option>
+          <option value="2500" data-under-18="600" data-over-18="2500">2500.-</option>
+        </select>
+      </td>
+      <td>
+        <input class='person-additional' name="Additional1" type="checkbox" title="Option" value="1" />Option  
+      </td>
+    </tr>
+  </table>
+  <p>
+    <input type="button" value="+ Add Person" id="addRows" />
+  </p>
+  
+  <script>
+    $(function() {
+          // When your year changes...
+          $(document).on('change','.person-year',function() {
+            // Check that the value is a year (assumes 4 digit number)
+            alert("Hi");
+            if (/^\d{4}/.test($(this).val())) {
+              // Parse the value
+              var year = parseInt($(this).val());
+              // Determine the user's age
+              var age = new Date().getFullYear() - year;
+              // Use the data attributes to set each value (ignore the first one)
+              $(this).closest('tr').find('.person-value option:not(:first)').each(function() {
+                var valueToUse = (age >= 18) ? $(this).attr('data-over-18') : $(this).attr('data-under-18');
+                $(this).val(valueToUse).text(valueToUse + '.-');
+              });
+            } else {
+              alert('Please enter a year! (any 4-digit number will do)');
+              $(this).val('').focus();
+            }
+          });
+          // When you add a new user
+          $("#addRows").click(function(){
+            debugger;
+            // Determine the next users number
+            var nextUser = $('.person-row').length + 1;
+            // Clone the first row
+            var nextUserRow = $('#maintable tr:first').clone();
+            // Update your attributes
+            $(nextUserRow).find('.person-number').text(nextUser + ':');
+            $(nextUserRow).find('.person-year').attr('name','Year' + nextUser).val('');
+            $(nextUserRow).find('.person-value').attr('name','Results' + nextUser);
+            $(nextUserRow).find('.person-additional').attr('name','Additional' + nextUser);
+            // Set the defaults for the row
+            $(nextUserRow).find('select option:not(:first)').each(function() {
+                var valueToUse = $(this).attr('data-over-18');
+                $(this).val(valueToUse).text(valueToUse + '.-');
+            });
+            // Append the row
+            $("#maintable").append(nextUserRow);
+          });
+        });
+
+  </script>
+</body>
+</html>
