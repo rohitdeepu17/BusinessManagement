@@ -67,7 +67,7 @@ include 'connect_my_sql_db.php';
     	<input class="smallinput" type="date" name="bdate" style="width:150px;" required>
     	
     	<!-- TABLE starts here -->
-    	<table id="my_table_id" name="billitems">
+    	<table id="my_table_id" class="my_table_id" name="billitems">
     		<tr>
        			<td>Sr. No.</td>
        			<td>Category</td>
@@ -129,10 +129,13 @@ include 'connect_my_sql_db.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <script>
-
-/*$(".qty").on("keydown", function () {
-		alert("onkeydown qty");
-		$('#total_amount').val(1);
+/*var total_amount_val = 0.00;
+$(".qty").on("keydown", function () {
+		var $this = $(this);
+		$tr = $this.closest('tr');
+		init_amount = $tr.find('.pricecalc').val();
+		total_amount_val = $('.total_amount').val()-init_amount;
+		alert("Total amount = "+total_amount_val);
 });*/
 
 $(".qty").on("keyup", function () {
@@ -142,9 +145,18 @@ $(".qty").on("keyup", function () {
 		unitprice_val = $tr.find('.unit_price').val();
 		amount = qty_val*unitprice_val;
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
-		//$('#total_amount').val(amount);
+		//alert("Total amount = "+total_amount_val);
+		//total_amount_val = total_amount_val + amount;
+		//$('.total_amount').val(amount);
 		//$(this).find('.total_amount').attr("value",amount);
 		//$(this).find('.total_discount').val(amount);
+		var childCount = $(this).closest('tr').parent().child.length;
+		var total_amt = 0;
+		alert("childCount = ".childCount);
+		for(var i=1;i<childCount;i++){
+			total_amt = total_amt + $(this).parent().parent().children[i].find('.pricecalc').val();
+		}
+		$('.total_amount').val(total_amt);
 });
 
 $(".unit_price").on("keyup", function () {

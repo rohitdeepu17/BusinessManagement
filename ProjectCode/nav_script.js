@@ -16,3 +16,4 @@ document.getElementById("navMenu").innerHTML =
   '<li><a href="#">Add Sale Payment</a></li>'+
   '<li><a href="log_out.php">Log Out</a></li>'+
 '</ul>';
+

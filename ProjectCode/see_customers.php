@@ -30,7 +30,7 @@ include 'connect_my_sql_db.php';
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){
 			//echo ("<tr><td>$data['cust_name']</td><td>$data['father_name']</td><td>$data['address']</td><td>$data['phone']</td><td>$data['other_details']</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
-			echo ("<tr><td>".$data['cust_name']."</td><td>".$data['father_name']."</td><td>".$data['address']."</td><td>".$data['phone']."</td><td>".$data['other_details']."</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo ("<tr><td><a href='customer_details.php?custid=".$data['cust_id']."'>".$data['cust_name']."</a></td><td>".$data['father_name']."</td><td>".$data['address']."</td><td>".$data['phone']."</td><td>".$data['other_details']."</td><td><a href='delete_cust.php?custid=".$data['cust_id']."'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 			//echo ('<tr><td>$data["cust_name"]</td><td>$data["father_name"]</td><td>$data["address"]</td><td>$data["phone"]</td><td>$data["other_details"]</td><td><a href="delete_cat.php"><img src="delete.png" alt="" style="width:40px; height:40px;"></a></td></tr>');
 			//echo ("<tr><td>$data[1]</td><td>$data[2]</td><td>$data[3]</td><td>$data[4]</td><td>$data[5]</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 		}

@@ -35,7 +35,7 @@ include 'connect_my_sql_db.php';
 			while($data1 = mysqli_fetch_assoc($res1)){
 				echo $data1['cust_name'];
 			}
-			echo("</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo("</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 		}
 
 	?>
