@@ -18,5 +18,5 @@ $que1 = mysqli_query($conn, $qry);
 if (!$que1) {
     echo "not updated";
 }
-//header('Location: see_products.php');
+header('Location: see_products.php');
 ?>
