@@ -1,25 +1,6 @@
 <?php
 include 'connect_my_sql_db.php';
 
-//To write data to pdf
-/*require('fpdf.php');
-$pdf = new FPDF();
-$pdf->AddPage();
-$pdf->AddPage();
-$row=file('toys.txt');
-$pdf->SetFont('Arial','B',12);	
-foreach($row as $rowValue) {
-	$data=explode(';',$rowValue);
-	foreach($data as $columnValue)
-		$pdf->Cell(90,12,$columnValue,1);
-		$pdf->SetFont('Arial','',12);		
-		$pdf->Ln();
-}
-$pdf->Output();*/
-
-
-
-
 $cname = $_POST['cname'];
 $cid  	= $_POST['cid'];
 $fname   	= $_POST['fname'];
@@ -31,7 +12,6 @@ $bamount = $_POST['total_amount'];
 $bdiscount = $_POST['total_discount'];
 $bpaid = $_POST['total_paid'];
 $profit = 0.0;
-
 
 print_r($_POST); 
 echo $_POST['cid'];
@@ -131,26 +111,6 @@ else
 	}
 	header('Location: see_bills.php');
 }
-
-
-
-
-/*$qry         = "INSERT INTO product(prod_name, cat_name, stock, unit_cost_price, 
-				unit_sale_price, prod_details)
-			    values('$pname', '$categories', '$pstock', 
-			    	   '$punitcostprice', '$punitsaleprice', '$pdetails')";
-			    
-echo $qry;
-$que1 = mysqli_query($conn, $qry);
-
-if (!$que1) {
-    echo "not inserted";
-    header('Location: add_bill.php');
-} else {
-	header('Location: see_bills.php');
-    
-}*/
-
 
 //http://www.fpdf.org/
 //http://phppot.com/php/php-pdf-generation-using-fpdf/

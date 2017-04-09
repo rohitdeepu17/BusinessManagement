@@ -18,6 +18,11 @@ include 'connect_my_sql_db.php';
 	<tr>
     	<th>Bill No.</th>
     	<th>Customer Name</th>
+    	<th>Bill Date</th>
+    	<th>Bill Amount</th>
+    	<th>Discount</th>
+    	<th>Paid Amount</th>
+    	<th>Balance</th>
     	<th>Delete</th>
     	<th>Download</th>
   	</tr>
@@ -34,6 +39,7 @@ include 'connect_my_sql_db.php';
 			$res1 = mysqli_query($conn, $qry1);
 			while($data1 = mysqli_fetch_assoc($res1)){
 				echo $data1['cust_name'];
+				echo("</td><td>".$data['bill_date']."</td><td>".$data['amount']."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".($data['amount']-$data['discount']-$data['paid_amount']));
 			}
 			echo("</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 		}

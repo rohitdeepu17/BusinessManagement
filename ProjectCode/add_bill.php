@@ -113,12 +113,12 @@ include 'connect_my_sql_db.php';
 				<input class="total_discount" type="number" step="0.01" placeholder="if any" name="total_discount" value="0.00" required>
     	</span><br><br>
     	<span class="sameline">
-				<label class="smalllabel" style="width:100px;">Paid Amount</label>
+				<label class="smalllabel" style="width:100px;">Paid (in cash)</label>
 				<input class="paid_amount" type="number" step="0.01" placeholder="if any" name="total_paid" value="0.00" required>
     	</span><br><br>
     	<div class="sameline">
 				<label class="smalllabel" style="width:100px;">Balance</label>
-				<input class="balance_amount" type="number" step="0.01" placeholder="if any" name="balance_amt" value="0.00" required>
+				<input class="balance_amount" type="number" step="0.01" placeholder="if any" name="balance_amt" value="0.00" required readonly="readonly">
     	</div><br><br>
  		<button type="submit">SUBMIT</button>
   	</div>
@@ -150,13 +150,17 @@ $(".qty").on("keyup", function () {
 		//$('.total_amount').val(amount);
 		//$(this).find('.total_amount').attr("value",amount);
 		//$(this).find('.total_discount').val(amount);
-		var childCount = $(this).closest('tr').parent().child.length;
+		/*var childCount = $(this).closest('tr').parent().child.length;
 		var total_amt = 0;
 		alert("childCount = ".childCount);
 		for(var i=1;i<childCount;i++){
 			total_amt = total_amt + $(this).parent().parent().children[i].find('.pricecalc').val();
 		}
-		$('.total_amount').val(total_amt);
+		$('.total_amount').val(total_amt);*/
+		
+		//alert("Hi sum = ".$('#my_table_id').sumtr({sumCells : '.pricecalc'}));
+		alert("Hi sum = ".$('#my_table_id tr:last'));
+		
 });
 
 $(".unit_price").on("keyup", function () {
@@ -186,6 +190,33 @@ $(document).ready(function () {
 				curRowProduct.html(data);
 			}
 		});
+    });
+    
+    $("#my_table_id").on('keyup', '.qty', function () {
+       var calculated_total_sum = 0;
+     	//alert("Hello	");
+       $("#my_table_id .pricecalc").each(function () {
+           var get_textbox_value = $(this).val();
+           //alert("get textbox value = "+get_textbox_value)
+           if ($.isNumeric(get_textbox_value)) {
+              calculated_total_sum += parseFloat(get_textbox_value);
+              }                  
+        });
+        $('.total_amount').val(calculated_total_sum.toFixed(2));
+    });
+    
+    $('.paid_amount').keyup(function(){
+    	//alert("hello "+$('.total_amount').val()+" "+$('.paid_amount').val()+" "+$('.total_discount').val());
+    	var balance = $('.total_amount').val()-$('.paid_amount').val()-$('.total_discount').val();
+    	//alert("changed paid amount, balance = "+balance);
+    	$('.balance_amount').val(balance.toFixed(2));
+    });
+    
+    $('.total_discount').keyup(function(){
+    	//alert("hello "+$('.total_amount').val()+" "+$('.paid_amount').val()+" "+$('.total_discount').val());
+    	var balance = $('.total_amount').val()-$('.paid_amount').val()-$('.total_discount').val();
+    	//alert("changed paid amount, balance = "+balance);
+    	$('.balance_amount').val(balance.toFixed(2));
     });
 });
 
@@ -223,7 +254,6 @@ $("#more_items").on("click", function () {
 });
 
 $("#custname").on('input', function () {
-	
 	//NEED TO LOOK FOR SOLUTION WHEN THERE ARE MANY PEOPLE WITH THE SAME NAME
 	var value = this.value;
 	var option = $('#suggestions').find("[value='" + value + "']");
@@ -261,232 +291,8 @@ $("#custname").on('input', function () {
 		//alert("Hi, option length is zero");
 	}
 	
-	
-
-    /*var val = this.value;
-    if($('#suggestions').find('option').filter(function(){
-        return this.value.toUpperCase() === val.toUpperCase();        
-    }).length) {
-        //send ajax request
-        //alert("Hi"+val);
-        $.ajax({
-			type: "POST",
-			url: "get_cust_details.php",
-			data:'cust_id='+custid,
-			success: function(data){
-				alert("success"+data);
-				data=JSON.parse(data);
-				//alert("Hello : "+data.address);
-				$('#addr').val(data.address);
-				$('#phone').val(data.phone);
-				$('#fathername').val(data.father_name);
-				$('#other_details').val(data.other_details);
-				$('#cust_id').val(data.cust_id);
-				//curRowUnitPrice.val(data);
-				//curRowAmount.val(data*curRowQtyVal);
-			}
-		});
-    }*/
 });
 
-
-
-
-
-
-
- /* (function( $ ) {
-    $.widget( "custom.combobox", {
-      _create: function() {
-        this.wrapper = $( "<span>" )
-          .addClass( "custom-combobox" )
-          .insertAfter( this.element );
- 
-        this.element.hide();
-        this._createAutocomplete();
-        this._createShowAllButton();
-      },
- 
-      _createAutocomplete: function() {
-        var selected = this.element.children( ":selected" ),
-          value = selected.val() ? selected.text() : "";
- 		alert("Hi");
-        this.input = $( "<input>" )
-          .appendTo( this.wrapper )
-          .val( value )
-          .attr( "title", "" )
-          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-          .autocomplete({
-            delay: 0,
-            minLength: 0,
-            source: $.proxy( this, "_source" )
-          })
-          .tooltip({
-            tooltipClass: "ui-state-highlight"
-          });
- 
-        this._on( this.input, {
-          autocompleteselect: function( event, ui ) {
-          	alert("input");
-            ui.item.option.selected = true;
-            this.element.trigger('change');
-            
-            this._trigger( "select", event, {
-            	alert("select");
-              item: ui.item.option
-            });
-          },
- 
-          autocompletechange: "_removeIfInvalid"
-        });
-      },
- 
-      _createShowAllButton: function() {
-        var input = this.input,
-          wasOpen = false;
- 
-        $( "<a>" )
-          .attr( "tabIndex", -1 )
-          .attr( "title", "Show All Items" )
-          .tooltip()
-          .appendTo( this.wrapper )
-          .button({
-            icons: {
-              primary: "ui-icon-triangle-1-s"
-            },
-            text: false
-          })
-          .removeClass( "ui-corner-all" )
-          .addClass( "custom-combobox-toggle ui-corner-right" )
-          .mousedown(function() {
-            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-          })
-          .click(function() {
-            input.focus();
- 
-            // Close if already visible
-            if ( wasOpen ) {
-              return;
-            }
- 
-            // Pass empty string as value to search for, displaying all results
-            input.autocomplete( "search", "" );
-          });
-      },
- 
-      _source: function( request, response ) {
-        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-        response( this.element.children( "option" ).map(function() {
-          var text = $( this ).text();
-          if ( this.value && ( !request.term || matcher.test(text) ) )
-            return {
-              label: text,
-              value: text,
-              option: this
-            };
-        }) );
-      },
- 
-      _removeIfInvalid: function( event, ui ) {
- 
-        // Selected an item, nothing to do
-        if ( ui.item ) {
-          return;
-        }
- 
-        // Search for a match (case-insensitive)
-        var value = this.input.val(),
-          valueLowerCase = value.toLowerCase(),
-          valid = false;
-        this.element.children( "option" ).each(function() {
-          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-            this.selected = valid = true;
-            return false;
-          }
-        });
- 
-        // Found a match, nothing to do
-        if ( valid ) {
-          return;
-        }
- 
-        // Remove invalid value
-        this.input
-          .val( "" )
-          .attr( "title", value + " didn't match any item" )
-          .tooltip( "open" );
-        this.element.val( "" );
-        this._delay(function() {
-          this.input.tooltip( "close" ).attr( "title", "" );
-        }, 2500 );
-        this.input.autocomplete( "instance" ).term = "";
-      },
- 
-      _destroy: function() {
-        this.wrapper.remove();
-        this.element.show();
-      }
-    });
-  })( jQuery );
- 
-  $(function() {
-      $( "#custname" ).combobox().on('change',function(){
-      	  alert("Hey");
-          alert($(this).find('option:selected').attr('data-custid')); 
-      });
-    
-  });
-*/
-
-
-
-
-//For autocomplete on input customer name
-$(function() {
-            var projects = [
-               {
-                  value: "java",
-                  label: "Java",
-                  desc: "write once run anywhere",
-               },
-               {
-                  value: "java",
-                  label: "Java",
-                  desc: "rohit here",
-               },
-               {
-                  value: "jquery-ui",
-                  label: "jQuery UI",
-                  desc: "the official user interface library for jQuery",
-               },
-               {
-                  value: "Bootstrap",
-                  label: "Twitter Bootstrap",
-                  desc: "popular front end frameworks ",
-               }
-            ];
-            $( "#custname" ).autocomplete({
-               minLength: 0,
-               source: projects,
-               focus: function( event, ui ) {
-                  $( "#custname" ).val( ui.item.label );
-                     return false;
-               },
-               select: function( event, ui ) {
-                  $( "#custname" ).val( ui.item.label );
-                  //$( "#project-id" ).val( ui.item.value );
-                  //$( "#project-description" ).html( ui.item.desc );
-                  //$( "#project-description" ).val( ui.item.desc );
-                  return false;
-               }
-            })
-				
-            .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-               return $( "<li>" )
-               .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
-               .appendTo( ul );
-            };
-});
 
 
 </script>
