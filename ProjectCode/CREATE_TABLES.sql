@@ -44,3 +44,11 @@ CREATE TABLE billcontent(
 		unit_price real,
 		PRIMARY KEY(bill_no, prod_id)
 		);
+		
+CREATE TABLE salepayment(
+		transaction_no int PRIMARY KEY AUTO_INCREMENT,
+		bill_no int REFERENCES bill(bill_no),
+		transaction_date date,
+		transaction_amount real,
+		transaction_mode int
+		);

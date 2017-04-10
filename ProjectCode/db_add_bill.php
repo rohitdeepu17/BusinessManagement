@@ -75,7 +75,7 @@ else
 		echo "not inserted into bill table";
 		//header('Location: add_bill.php');
 	}else{
-		//fetch recently added customer id from table
+		//fetch recently added billno from table
 		$res = mysqli_query($conn, "SELECT MAX(bill_no) FROM bill;");
 		if($res)
 			echo "result not null";
@@ -86,6 +86,18 @@ else
 			echo "hey data = ".$data[0];
 		}
 		echo "bill new inserted = ".$billno;
+	}
+	
+	//insert payment(by cash)
+	if($bpaid>0.10){
+		$qry = "INSERT INTO salepayment(bill_no, transaction_date, transaction_mode, transaction_amount)
+				 values('$billno', '$bdate', 1, '$bpaid')";
+		echo $qry;
+		$que1 = mysqli_query($conn, $qry);
+		if (!$que1) {
+			echo "not inserted into salepayment table";
+			//header('Location: add_bill.php');
+		}
 	}
 	
 	
