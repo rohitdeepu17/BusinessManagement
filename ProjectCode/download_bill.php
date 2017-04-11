@@ -35,7 +35,7 @@ function LoadData($file)
 }
 
 // Better table
-function ImprovedTable($header, $datadoc, $billno, $conn)
+function ImprovedTable($header, $billno, $conn)
 {
 $this->Cell(20,6,"Bill No.");
 $this->Cell(15,6,$billno);
@@ -151,9 +151,8 @@ $pdf = new PDF();
 // Column headings
 $header = array('Sr. No.', 'Product Name', 'Quantity', 'Unit Price', 'Amount');
 // Data loading
-$data = $pdf->LoadData('countries.txt');
 $pdf->SetFont('Arial','',14);
 $pdf->AddPage();
-$pdf->ImprovedTable($header,$data, $billno, $conn);
-$pdf->Output();
+$pdf->ImprovedTable($header, $billno, $conn);
+$pdf->Output("", "Bill_".$billno.".pdf", false);
 ?>

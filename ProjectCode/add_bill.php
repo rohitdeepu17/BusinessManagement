@@ -10,7 +10,7 @@ include 'connect_my_sql_db.php';
 
 
 <body>
-<link href="css/my_file.css" rel="stylesheet" type="text/css" />
+<link href="css/my_file1.css" rel="stylesheet" type="text/css" />
 
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>
@@ -27,7 +27,7 @@ include 'connect_my_sql_db.php';
   	<div>
   		<div class="sameline">
   			<label class="smalllabel"><b>Customer ID :</b></label>
-    		<input class="smallinput" type="text" placeholder="max 20 chars" name="cid" id="cust_id" maxlength="20" value="N.A." readonly="readonly" required>
+    		<input class="smallinputreadonly" type="text" placeholder="max 20 chars" name="cid" id="cust_id" maxlength="20" value="N.A." readonly="readonly" required>
     	
   			<label class="smalllabel"><b>Customer Name</b></label>
     		<input class="smallinput" type="text" placeholder="max 20 chars" name="cname" id="custname" maxlength="20" list="suggestions" required>
@@ -64,7 +64,7 @@ include 'connect_my_sql_db.php';
     	</div>
     	
     	<label class="smalllabel"><b>Invoice Date</b></label>
-    	<input class="smallinput" type="date" name="bdate" style="width:150px;" required>
+    	<input class="smallinput" type="date" name="bdate" required>
     	
     	<!-- TABLE starts here -->
     	<table id="my_table_id" class="my_table_id" name="billitems">
@@ -102,7 +102,7 @@ include 'connect_my_sql_db.php';
     		
  		</table>
  		
- 		<input type="button" value="Add more items" id="more_items" style="margin-top:10px; margin-bottom:20px"/><br>
+ 		<input type="button" value="Add more items" id="more_items" class="more_items"/><br>
  		
  		<span class="sameline">
 				<label class="smalllabel" style="width:100px;">Total Amount</label>
@@ -129,14 +129,6 @@ include 'connect_my_sql_db.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <script>
-/*var total_amount_val = 0.00;
-$(".qty").on("keydown", function () {
-		var $this = $(this);
-		$tr = $this.closest('tr');
-		init_amount = $tr.find('.pricecalc').val();
-		total_amount_val = $('.total_amount').val()-init_amount;
-		alert("Total amount = "+total_amount_val);
-});*/
 
 $(".qty").on("keyup", function () {
     	var $this = $(this);
@@ -145,22 +137,7 @@ $(".qty").on("keyup", function () {
 		unitprice_val = $tr.find('.unit_price').val();
 		amount = qty_val*unitprice_val;
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
-		//alert("Total amount = "+total_amount_val);
-		//total_amount_val = total_amount_val + amount;
-		//$('.total_amount').val(amount);
-		//$(this).find('.total_amount').attr("value",amount);
-		//$(this).find('.total_discount').val(amount);
-		/*var childCount = $(this).closest('tr').parent().child.length;
-		var total_amt = 0;
-		alert("childCount = ".childCount);
-		for(var i=1;i<childCount;i++){
-			total_amt = total_amt + $(this).parent().parent().children[i].find('.pricecalc').val();
-		}
-		$('.total_amount').val(total_amt);*/
-		
-		//alert("Hi sum = ".$('#my_table_id').sumtr({sumCells : '.pricecalc'}));
 		alert("Hi sum = ".$('#my_table_id tr:last'));
-		
 });
 
 $(".unit_price").on("keyup", function () {

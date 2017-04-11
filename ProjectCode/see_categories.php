@@ -9,7 +9,7 @@ include 'connect_my_sql_db.php';
 <style>
 </style>
 <body>
-<link href="css/my_file.css" rel="stylesheet" type="text/css" />
+<link href="css/my_file1.css" rel="stylesheet" type="text/css" />
 
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>

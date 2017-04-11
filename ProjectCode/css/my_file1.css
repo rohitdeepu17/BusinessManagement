@@ -5,7 +5,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #f0e6e6;
+    background-color: #d3d3d3;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 20px;
@@ -22,34 +22,58 @@
 
 .sidenav a:hover{
     color: #f61919;
-    background-color: #f0e6e6;
+    background-color: #d3d3d3;
 }
 
-.subform{
+.subform, .seelist{
 	margin-left: 250px;
 }
 
 .smallinput{
     display: block;
-    font-size:11px;
+    font-size:15px;
     padding:4px 2px;
     border:solid 1px #aacfe4;
-    width:100px;
+    width:150px;
+    height:20px;
     margin:2px 0 20px 10px;
+}
+
+.smallinputreadonly, .balance_amount, .total_amount{
+    display: block;
+    font-size:15px;
+    padding:4px 2px;
+    border:solid 1px #aacfe4;
+    background-color: #d3d3d3;
+    width:150px;
+    height:20px;
+    margin:2px 0 10px 10px;
+}
+
+.total_discount, .paid_amount{
+    display: block;
+    font-size:15px;
+    padding:4px 2px;
+    border:solid 1px #aacfe4;
+    width:150px;
+    height:20px;
+    margin:2px 0 10px 10px;
 }
 
 .largeinput{
     display: block;
-    font-size:11px;
+    font-size:15px;
     padding:4px 2px;
     border:solid 1px #aacfe4;
-    width:100px;
+    width:150px;
     margin:2px 0 20px 10px;
 }
 
 .smalllabel{
 	float:left;
 	margin-right:20px;
+	width:120px;
+	font-size:15px;
 }
 
 .labelsameline{
@@ -75,10 +99,6 @@
     vertical-align: top;
 }
 
-.seelist{
-	margin-left: 250px;
-}
-
 table, th, td {
     border: 1px solid black;
 }
@@ -102,6 +122,35 @@ a:hover {
 a:active {
     color: yellow;
 } 
+
+select{
+	width:150px;
+	height:20px;
+	font-size:15px;
+}
+
+button{
+	width:100px;
+	height:30px;
+	font-size:15px;
+	margin-top:10px; 
+	margin-bottom:20px;
+	background-color: #d3d3d3;
+	color: #818181;
+}
+
+button:hover{
+	color: #f61919;
+    background-color: #d3d3d3;
+}
+
+.more_items{
+	width:100px;
+	height:150px;
+	font-size:40px;
+	margin-top:10px; 
+	margin-bottom:20px;
+}
 
 
 @media screen and (max-height: 450px) {

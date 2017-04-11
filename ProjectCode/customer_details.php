@@ -25,7 +25,7 @@ while($data = mysqli_fetch_assoc($res)){
 <style>
 </style>
 <body>
-<link href="css/my_file.css" rel="stylesheet" type="text/css" />
+<link href="css/my_file1.css" rel="stylesheet" type="text/css" />
 
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>
@@ -40,7 +40,7 @@ function goBack(){
 	<legend style="font-size:22px">Adding a Customer:</legend>
   	<div>
   		<label class="smalllabel"><b>Customer Id</b></label>
-    	<input class="smallinput" type="text" placeholder="max 20 chars" name="cid" maxlength="20" value="<?php echo $custid;?>" readonly="readonly" required>
+    	<input class="smallinputreadonly" type="text" placeholder="max 20 chars" name="cid" maxlength="20" value="<?php echo $custid;?>" readonly="readonly" required>
     	
   		<label class="smalllabel"><b>Customer Name</b></label>
     	<input class="smallinput" type="text" placeholder="max 20 chars" name="cname" maxlength="20" value="<?php echo $custname;?>" required>

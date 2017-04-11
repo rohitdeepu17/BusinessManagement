@@ -28,7 +28,7 @@ while($data = mysqli_fetch_assoc($res)){
 <style>
 </style>
 <body>
-<link href="css/my_file.css" rel="stylesheet" type="text/css" />
+<link href="css/my_file1.css" rel="stylesheet" type="text/css" />
 
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>
@@ -40,10 +40,10 @@ function goBack(){
 
 <form action="db_update_product.php" class="subform" method="post">
 	<fieldset>
-	<legend style="font-size:22px">Adding a New Product:</legend>
+	<legend style="font-size:22px">Update a Product:</legend>
   	<div>
   		<label class="smalllabel"><b>Product Id</b></label>
-    	<input class="smallinput" type="text" placeholder="max 20 chars" name="pid" maxlength="20" value="<?php echo $prodid;?>" readonly="readonly" required>
+    	<input class="smallinputreadonly" type="text" placeholder="max 20 chars" name="pid" maxlength="20" value="<?php echo $prodid;?>" readonly="readonly" required>
   	
   		<label class="smalllabel"><b>Product Name</b></label>
     	<input class="smallinput" type="text" placeholder="max 20 chars" name="pname" maxlength="20" value="<?php echo $prodname;?>" required>
@@ -62,31 +62,7 @@ function goBack(){
 			else
 				echo ("<option value='$data[0]'>$data[0]</option>");
 		}
-
 		?>
-		
-		
-		<!-- <script type="text/javascript"
-    				src="jquery-ui-1.10.0/tests/jquery-1.9.0.js"></script>
-			<script src="jquery-ui-1.10.0/ui/jquery-ui.js"></script>
-			<script>    
-				$('#dbType').change(function(){
-
-   				selection = $('this').value();
-   				switch(selection)
-   				{
-       				case 'Hose Pipe':
-       					alert("Please be careful");
-           				document.findElementById("prodName").value = 'Hose Pipe';
-           				break;
-       				case 'default':
-           				document.findElementById("prodName").value = 'Other';
-           				break;
-   				}
-			});
-			</script> -->
-		
-		
 		
   		</select>
   		<br><br>

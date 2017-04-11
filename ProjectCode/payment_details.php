@@ -5,25 +5,6 @@ $billno = $_GET['billno'];
 $totalamount = $_GET['billamount'];
 $discount = $_GET['discount'];
 $paidamount = $_GET['paidamount'];
-//echo $billno;
-/*$prodname = null;
-$proddetails = null;
-$prodstock = null;
-$produnitsaleprice = null;
-$produnitcostprice = null;
-$prodcat = null;
-$qry = "SELECT * FROM product WHERE prod_id=".$prodid;
-
-$res = mysqli_query($conn, $qry);
-while($data = mysqli_fetch_assoc($res)){
-	$prodname = $data['prod_name'];
-	$proddetails = $data['prod_details'];
-	$prodstock = $data['stock'];
-	$produnitsaleprice = $data['unit_sale_price'];
-	$produnitcostprice = $data['unit_cost_price'];
-	$prodcat = $data['cat_name'];
-}*/
-
 ?>
 
 
@@ -32,7 +13,7 @@ while($data = mysqli_fetch_assoc($res)){
 <style>
 </style>
 <body>
-<link href="css/my_file.css" rel="stylesheet" type="text/css" />
+<link href="css/my_file1.css" rel="stylesheet" type="text/css" />
 
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>
@@ -45,8 +26,6 @@ function goBack(){
 	<?php 
 		include 'connect_my_sql_db.php';
 		$qry = "SELECT * FROM salepayment WHERE bill_no=".$billno.";";
-		//$qry = "SELECT * FROM category;";
-		//echo $qry;
 		$res = mysqli_query($conn, $qry);
 		
 		echo "<table class='subform' border='1'>
@@ -108,7 +87,7 @@ function goBack(){
 	<legend style="font-size:22px">Adding a New Payment:</legend>
   	<div>
   		<label class="smalllabel"><b>Bill No.</b></label>
-    	<input class="smallinput" type="text" placeholder="max 20 chars" name="billno" maxlength="20" value="<?php echo $billno;?>" readonly="readonly" required>
+    	<input class="smallinputreadonly" type="text" placeholder="max 20 chars" name="billno" maxlength="20" value="<?php echo $billno;?>" readonly="readonly" required>
   	
     	<label class="smalllabel"><b>Payment Mode</b></label>
     	<select name="paymentmode">
@@ -123,7 +102,7 @@ function goBack(){
     	<input class="smallinput" type="number" step="0.01" placeholder="enter a number" name="paymentamt" value="0.00" required>
     	
     	<label class="smalllabel"><b>Payment Date</b></label>
-    	<input class="smallinput" type="date" name="paymentdate" style="width:150px;" required>
+    	<input class="smallinput" type="date" name="paymentdate" required>
     	
     	<button onclick="goBack()">BACK</button>
         <button type="submit">SUBMIT</button>

@@ -20,7 +20,7 @@ $qry = "SELECT * FROM category WHERE cat_id=".$_GET['catid'];
 <style>
 </style>
 <body>
-<link href="css/my_file.css" rel="stylesheet" type="text/css" />
+<link href="css/my_file1.css" rel="stylesheet" type="text/css" />
 
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>
@@ -33,10 +33,10 @@ function goBack(){
 
 <form action="<?php echo 'db_update_category.php';?>" class="subform" method="post">
 	<fieldset>
-	<legend style="font-size:22px">Adding a New Category of Products:</legend>
+	<legend style="font-size:22px">Update a New Category of Products:</legend>
   	<div>
   		<label class="smalllabel"><b>Category Id</b></label>
-    	<input class="smallinput" type="text" placeholder="max 20 chars" name="cid" maxlength="20" value="<?php echo $catid;?>" readonly="readonly" required>
+    	<input class="smallinputreadonly" type="text" placeholder="max 20 chars" name="cid" maxlength="20" value="<?php echo $catid;?>" readonly="readonly" required>
     	
     	<label class="smalllabel"><b>Category Name</b></label>
     	<input class="smallinput" type="text" placeholder="max 20 chars" name="cname" maxlength="20" value="<?php echo $catname;?>" required>
