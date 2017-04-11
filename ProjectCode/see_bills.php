@@ -33,15 +33,15 @@ include 'connect_my_sql_db.php';
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){
-			echo ("<tr><td>".$data['bill_no']."</td><td><a href='payment_details.php?billno=".$data['bill_no']."'>");
+			echo ("<tr><td>".$data['bill_no']."</td><td><a href='payment_details.php?billno=".$data['bill_no']."&billamount=".round($data['amount'],2)."&discount=".$data['discount']."&paidamount=".$data['paid_amount']."'>");
 			$qry1 = "SELECT cust_name FROM customer WHERE cust_id = ".$data['cust_id'].";";
 			//echo $qry1;
 			$res1 = mysqli_query($conn, $qry1);
 			while($data1 = mysqli_fetch_assoc($res1)){
 				echo $data1['cust_name'];
-				echo("</a></td><td>".$data['bill_date']."</td><td>".$data['amount']."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".($data['amount']-$data['discount']-$data['paid_amount']));
+				echo("</a></td><td>".$data['bill_date']."</td><td>".round($data['amount'],2)."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".round(($data['amount']-$data['discount']-$data['paid_amount']),2));
 			}
-			echo("</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 		}
 
 	?>

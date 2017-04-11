@@ -2,6 +2,9 @@
 include 'session_check_common.php';
 include 'connect_my_sql_db.php';
 $billno = $_GET['billno'];
+$totalamount = $_GET['billamount'];
+$discount = $_GET['discount'];
+$paidamount = $_GET['paidamount'];
 //echo $billno;
 /*$prodname = null;
 $proddetails = null;
@@ -58,11 +61,45 @@ function goBack(){
 		echo "<tr>";
 			echo "<td style='height:20px'>".$data['transaction_date']."</td>";
 			echo "<td style='height:20px'>" . $data['transaction_amount'] . "</td>";
-			echo "<td style='height:20px'>" . $data['transaction_mode'] . "</td>";
+			echo "<td style='height:20px'>" . printTransactionMode($data['transaction_mode']) . "</td>";
 		echo "</tr>";
 		}
 		echo "</table>";
-
+		
+		echo "<br>";
+		
+		function printTransactionMode($transmode = 1) {
+    		switch($transmode){
+    			case 1:
+    				return "Cash";
+    				break;			//although break has no meaning after return
+    			case 2:
+    				return "Cheque";
+    				break;
+    			case 3:
+    				return "NEFT";
+    				break;
+    			default:
+    				return "Others";
+    		}
+		}
+		
+		echo "<table class='subform' border='1'>
+		<tr>
+		<th>Total Amount</th>
+		<th>Discount</th>
+		<th>Paid Amount</th>
+		<th>Balance</th>
+		</tr>";
+		
+		echo "<tr>";
+			echo "<td style='height:20px'>".$totalamount."</td>";
+			echo "<td style='height:20px'>" . $discount . "</td>";
+			echo "<td style='height:20px'>" . $paidamount . "</td>";
+			echo "<td style='height:20px'>" . ($totalamount-$paidamount-$discount) . "</td>";
+		echo "</tr>";
+		echo "</table>";
+		echo "<br>";
 		
 	?>
 

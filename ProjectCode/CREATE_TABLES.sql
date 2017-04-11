@@ -38,17 +38,29 @@ CREATE TABLE bill(
 		);
 
 CREATE TABLE billcontent(
-		bill_no int REFERENCES bill(bill_no),
-		prod_id int REFERENCES product(prod_id),
+		bill_no int,
+		prod_id int,
 		qty real,
 		unit_price real,
-		PRIMARY KEY(bill_no, prod_id)
+		PRIMARY KEY(bill_no, prod_id),
+		CONSTRAINT bill_bcfk_1 
+  		FOREIGN KEY (bill_no) 
+  		REFERENCES bill(bill_no) 
+  		ON DELETE CASCADE,
+  		CONSTRAINT bill_bcfk_2 
+  		FOREIGN KEY (prod_id) 
+  		REFERENCES product(prod_id) 
+  		ON DELETE CASCADE
 		);
 		
 CREATE TABLE salepayment(
 		transaction_no int PRIMARY KEY AUTO_INCREMENT,
-		bill_no int REFERENCES bill(bill_no),
+		bill_no int,
 		transaction_date date,
 		transaction_amount real,
-		transaction_mode int
+		transaction_mode int,
+		CONSTRAINT bill_spfk_1 
+  		FOREIGN KEY (bill_no) 
+  		REFERENCES bill(bill_no) 
+  		ON DELETE CASCADE
 		);
