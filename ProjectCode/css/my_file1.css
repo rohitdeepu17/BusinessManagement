@@ -25,6 +25,11 @@
     background-color: #d3d3d3;
 }
 
+.slidingimg{
+	width: 800px;
+	height: 600px;
+}
+
 .subform, .seelist{
 	margin-left: 250px;
 }
