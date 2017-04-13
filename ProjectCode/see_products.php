@@ -32,7 +32,7 @@ include 'connect_my_sql_db.php';
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){
 			//echo ("<tr><td>$data[1]</td><td>$data[6]</td><td>$data[4]</td><td>$data[3]</td><td>$data[2]</td><td>$data[5]</td><td><a href='delete_cat.php'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
-			echo ("<tr><td><a href='product_details.php?prodid=".$data['prod_id']."'>".$data['prod_name']."</a></td><td>".$data['cat_name']."</td><td>".$data['unit_cost_price']."</td><td>".$data['unit_sale_price']."</td><td>".$data['stock']."</td><td>".$data['prod_details']."</td><td><a href='delete_prod.php?prodid=".$data['prod_id']."'><img src='delete.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo ("<tr><td><a href='product_details.php?prodid=".$data['prod_id']."'>".$data['prod_name']."</a></td><td>".$data['cat_name']."</td><td>".$data['unit_cost_price']."</td><td>".$data['unit_sale_price']."</td><td>".$data['stock']."</td><td>".$data['prod_details']."</td><td><a href='delete_prod.php?prodid=".$data['prod_id']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 		}
 
 	?>
