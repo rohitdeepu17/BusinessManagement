@@ -103,6 +103,7 @@ include 'connect_my_sql_db.php';
  		</table>
  		
  		<input type="button" value="Add more items" id="more_items" class="more_items"/><br>
+ 		<div style="float:right">
  		
  		<span class="sameline">
 				<label class="smalllabel" style="width:100px;">Total Amount</label>
@@ -120,7 +121,8 @@ include 'connect_my_sql_db.php';
 				<label class="smalllabel" style="width:100px;">Balance</label>
 				<input class="balance_amount" type="number" step="0.01" placeholder="if any" name="balance_amt" value="0.00" required readonly="readonly">
     	</div><br><br>
- 		<button type="submit">SUBMIT</button>
+ 		<button type="submit" style="float:right">SUBMIT</button>
+ 		</div>
   	</div>
   	</fieldset>
 </form>
