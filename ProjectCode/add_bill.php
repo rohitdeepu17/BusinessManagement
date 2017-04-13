@@ -228,6 +228,9 @@ $("#more_items").on("click", function () {
     $('#my_table_id tr:last').clone(true, true).insertAfter("#my_table_id tr:last");
     var count = $('#my_table_id tr').length;
     $('#my_table_id tr:last td:first').html(count-1);		//first row is dummy titles row
+    $('#my_table_id tr:last td:second').val("Select Category");
+    $('#my_table_id tr:last td:third').val("Select Product");
+    $('#my_table_id tr:last td:last').val(0.00);
 });
 
 $("#custname").on('input', function () {

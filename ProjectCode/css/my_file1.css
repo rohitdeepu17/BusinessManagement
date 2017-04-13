@@ -25,10 +25,17 @@
     background-color: #d3d3d3;
 }
 
-.slidingimg{
-	width: 800px;
-	height: 600px;
+body{
+	background-color: green;
 }
+
+/* 
+.slidingimg{
+	width: 700px;
+	height: 400px;
+	margin-left: 50px;
+}
+ */
 
 .subform, .seelist{
 	margin-left: 250px;

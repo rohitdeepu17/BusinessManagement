@@ -65,18 +65,21 @@ function goBack(){
 		
 		echo "<table class='subform' border='1'>
 		<tr>
-		<th>Total Amount</th>
-		<th>Discount</th>
-		<th>Paid Amount</th>
-		<th>Balance</th>
+			<th>Description</th>
+			<th>Amount</th>
 		</tr>";
 		
-		echo "<tr>";
-			echo "<td style='height:20px'>".$totalamount."</td>";
-			echo "<td style='height:20px'>" . $discount . "</td>";
-			echo "<td style='height:20px'>" . $paidamount . "</td>";
-			echo "<td style='height:20px'>" . ($totalamount-$paidamount-$discount) . "</td>";
-		echo "</tr>";
+		echo "<tr><td>Total Amount</td>";
+		echo "<td style='height:20px'>".$totalamount."</td></tr>";
+		
+		echo "<tr><td>Discount</td>";
+		echo "<td style='height:20px'>".$discount."</td></tr>";
+		
+		echo "<tr><td>Paid Amount</td>";
+		echo "<td style='height:20px'>".$paidamount."</td></tr>";
+		
+		echo "<tr><td>Balance</td>";
+		echo "<td style='height:20px'>".($totalamount-$paidamount-$discount)."</td></tr>";
 		echo "</table>";
 		echo "<br>";
 		
@@ -103,6 +106,9 @@ function goBack(){
     	
     	<label class="smalllabel"><b>Payment Date</b></label>
     	<input class="smallinput" type="date" name="paymentdate" required>
+    	
+    	<label class="smalllabel"><b>More Discount</b></label>
+    	<input class="smallinput" type="number" step="0.01" placeholder="enter a number" name="discount" value="0.00" required>
     	
     	<button onclick="goBack()">BACK</button>
         <button type="submit">SUBMIT</button>
