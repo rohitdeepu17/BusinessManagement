@@ -33,9 +33,21 @@ while($data = mysqli_fetch_assoc($res)){
 function goBack(){
 	window.history.back();
 }
+
+function toggleShowHide(){
+	var x = document.getElementById('settled_bills');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
 </script>
 
-<form action="db_update_customer.php" class="subform" method="post">
+<div>
+
+<div>
+<form action="db_update_customer.php" class="subform" method="post" style="float:left">
 	<fieldset>
 	<legend style="font-size:22px">Adding a Customer:</legend>
   	<div>
@@ -63,7 +75,71 @@ function goBack(){
   	</div>
   	</fieldset>
 </form>
+</div>
 
+<div style="float:right">
+<table>
+	<tr>
+    	<th>Bill No.</th>
+    	<th>Bill Date</th>
+    	<th>Bill Amount</th>
+    	<th>Discount</th>
+    	<th>Paid Amount</th>
+    	<th>Balance</th>
+    	<th>Delete</th>
+    	<th>Download</th>
+  	</tr>
+  	
+	<?php 
+		include 'connect_my_sql_db.php';
+		$qry = "SELECT * FROM bill WHERE cust_id = $custid AND (amount-paid_amount-discount) > 0.10;";
+
+		$res = mysqli_query($conn, $qry);
+		while($data = mysqli_fetch_assoc($res)){
+			echo ("<tr><td>".$data['bill_no']."</td>");
+				$balanceamount = $data['amount']-$data['discount']-$data['paid_amount'];
+				echo("<td>".$data['bill_date']."</td><td>".round($data['amount'],2)."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".round($balanceamount,2));
+			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+		}
+
+	?>
+</table>
+
+<button type="button" onclick="toggleShowHide()">Settled Bills</button>
+
+<table id="settled_bills" style="display:none">
+	<tr>
+    	<th>Bill No.</th>
+    	<th>Bill Date</th>
+    	<th>Bill Amount</th>
+    	<th>Discount</th>
+    	<th>Paid Amount</th>
+    	<th>Balance</th>
+    	<th>Delete</th>
+    	<th>Download</th>
+  	</tr>
+  	
+	<?php 
+		include 'connect_my_sql_db.php';
+		$qry = "SELECT * FROM bill WHERE cust_id = $custid AND (amount-paid_amount-discount) < 0.10;";
+
+		$res = mysqli_query($conn, $qry);
+		while($data = mysqli_fetch_assoc($res)){
+			echo ("<tr><td>".$data['bill_no']."</td>");
+				$balanceamount = $data['amount']-$data['discount']-$data['paid_amount'];
+				echo("<td>".$data['bill_date']."</td><td>".round($data['amount'],2)."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".round($balanceamount,2));
+			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data[bill_no]."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+		}
+
+	?>
+</table>
+
+
+<!-- <a onclick="document.getElementById('settled_bills').style.display='block'">See Settled Bills</a> -->
+
+
+</div>
+</div>
 
 </body>
 </html>

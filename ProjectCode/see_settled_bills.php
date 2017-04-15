@@ -29,7 +29,7 @@ include 'connect_my_sql_db.php';
   	
 	<?php 
 		include 'connect_my_sql_db.php';
-		$qry = "SELECT * FROM bill WHERE (amount-paid_amount-discount) > 0.10;";
+		$qry = "SELECT * FROM bill WHERE (amount-paid_amount-discount) < 0.10;";
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){
@@ -49,8 +49,8 @@ include 'connect_my_sql_db.php';
 	?>
 </table>
 
-<br><a href="download_unsettled_bills.php" target="_blank" class="seelist">Download as pdf</a><br><br>
-<a href="see_settled_bills.php" class="seelist">See Settled Bills</a>
+<br><a href="download_settled_bills.php" target="_blank" class="seelist">Download as pdf</a><br><br>
+<a href="see_bills.php" class="seelist">See Unsettled Bills</a>
 
 
 </body>

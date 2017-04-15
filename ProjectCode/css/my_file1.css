@@ -39,6 +39,7 @@ body{
 
 .subform, .seelist{
 	margin-left: 250px;
+	padding:20px;
 }
 
 .smallinput{
