@@ -31,7 +31,7 @@ function LoadData($file)
 }
 
 // Better table
-function ImprovedTable($header, $billno, $conn)
+function ImprovedTable($header, $conn)
 {
 //date_default_timezone_set("Asia/Kolkata");
 // Create a new DateTime object
@@ -122,7 +122,7 @@ $header = array('Bill No.', 'Customer Name', 'Father Name', 'Village', 'Phone', 
 // Data loading
 $pdf->SetFont('Arial','',10);
 $pdf->AddPage('L');
-$pdf->ImprovedTable($header, $billno, $conn);
+$pdf->ImprovedTable($header, $conn);
 //Need to look better logic to take understandable date/time
 $pdf->Output("", "UnsettledBills_".time().".pdf", false);
 ?>
