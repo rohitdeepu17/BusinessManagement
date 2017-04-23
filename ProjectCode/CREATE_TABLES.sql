@@ -11,7 +11,7 @@ CREATE TABLE category(
 CREATE TABLE product(
 		prod_id int PRIMARY KEY AUTO_INCREMENT,
 		prod_name varchar(20) UNIQUE,
-		cat_name int REFERENCES category(cat_name),
+		cat_name varchar(20) REFERENCES category(cat_name),
 		stock real,
 		unit_sale_price real,
 		unit_cost_price real,

@@ -3,7 +3,7 @@ include 'session_check_common.php';
 include 'connect_my_sql_db.php';
 require('fpdf.php');
 date_default_timezone_set("Asia/Kolkata");
-$billno = $_GET['billno'];
+//$billno = $_GET['billno'];
 
 class PDF extends FPDF
 {
