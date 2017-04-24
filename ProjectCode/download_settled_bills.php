@@ -53,42 +53,36 @@ $total_amount = 0;
 $total_paid = 0;
 $total_discount = 0;
 
-$qry = "SELECT * FROM bill WHERE (amount-paid_amount-discount) < 0.10;";
+//$qry = "SELECT * FROM bill WHERE (amount-paid_amount-discount) < 0.10;";
+$qry = "SELECT m.*, p.* FROM bill AS m JOIN customer AS p on p.cust_id = m.cust_id WHERE (m.amount-m.paid_amount-m.discount) < 0.10 ORDER BY p.address";
 $res = mysqli_query($conn, $qry);
+// Color and font restoration
+$this->SetFillColor(216,216,216);
+//fill or not
+$fill = false;
 while($data = mysqli_fetch_assoc($res)){
    $row_count = $row_count + 1;
-   $this->Cell($w[0],$h,number_format($data['bill_no']).".",'LR', 0, 'R');
-   
-    $qry1 = "SELECT * FROM customer WHERE cust_id = ".$data['cust_id'].";";
-	//echo $qry1;
-	$res1 = mysqli_query($conn, $qry1);
-	$custname = null;
-	$address = null;
-	$father = null;
-	$phone = null;
-	while($data1 = mysqli_fetch_assoc($res1)){
-		$custname = $data1['cust_name'];
-		$father = $data1['father_name'];
-		$address = $data1['address'];
-		$phone = $data1['phone'];
-	}
-	
-   $this->Cell($w[1],$h,$custname,'LR');
-   $this->Cell($w[2],$h,$father,'LR');
-   $this->Cell($w[3],$h,$address,'LR');
-   $this->Cell($w[4],$h,$phone,'LR');
+   $this->Cell($w[0],$h,number_format($data['bill_no']).".",'LR', 0, 'R', $fill);
+   $this->Cell($w[1],$h,$data['cust_name'],'LR', 0, 'L', $fill);
+   $this->Cell($w[2],$h,$data['father_name'],'LR', 0, 'L', $fill);
+   $this->Cell($w[3],$h,$data['address'],'LR', 0, 'L', $fill);
+   $this->Cell($w[4],$h,$data['phone'],'LR', 0, 'L', $fill);
    
    date_default_timezone_set("Asia/Kolkata");
    $dateinnewformat = DateTime::createFromFormat('Y-m-d', $data['bill_date']);
-   $this->Cell($w[5],$h,$dateinnewformat->format('d-m-Y'),'LR',0,'R');
-   $this->Cell($w[6],$h,$data['amount'],'LR',0,'R');
-   $this->Cell($w[7],$h,$data['discount'],'LR',0,'R');
-   $this->Cell($w[8],$h,$data['paid_amount'],'LR',0,'R');
+   $this->Cell($w[5],$h,$dateinnewformat->format('d-m-Y'),'LR',0,'R', $fill);
+   $this->Cell($w[6],$h,$data['amount'],'LR',0,'R', $fill);
+   $this->Cell($w[7],$h,$data['discount'],'LR',0,'R', $fill);
+   $this->Cell($w[8],$h,$data['paid_amount'],'LR',0,'R', $fill);
    $balance = $data['amount']-$data['paid_amount']-$data['discount'];
    $total_paid += $data['paid_amount'];
    $total_amount += $data['amount'];
    $total_discount += $data['discount'];
+   //separation line
    $this->Ln();
+   $this->Cell(array_sum($w),0,'','T');
+   $this->Ln();
+   $fill = !$fill;
 }
 // Closing line
 $this->Cell(array_sum($w),0,'','T');

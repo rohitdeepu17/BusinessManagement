@@ -1,3 +1,31 @@
+<?php
+include 'session_check_common.php';
+include 'connect_my_sql_db.php';
+?>
+
+<?php 
+$sql="select cust_id, cust_name, father_name from customer"; 
+
+$cust_name = array();
+$father_name = array();
+$result=mysqli_query($conn, $sql);
+while($row=mysqli_fetch_assoc($result)) 
+{ 
+$title=$row['cust_name']; 
+$url=$row['father_name']; 
+
+$posts[] = array('customer'=> $title, 'father'=> $url);
+
+} 
+
+$response['posts'] = $posts;
+
+$fp = fopen('results.json', 'w');
+fwrite($fp, json_encode($response));
+fclose($fp);
+
+
+?> 
 <!doctype html>
 <html lang = "en">
    <head>
@@ -13,11 +41,6 @@
             display: block;
             font-weight: bold;
             margin-bottom: 1em;
-         }
-         #project-icon {
-            float: left;
-            height: 32px;
-            width: 32px;
          }
          #project-description {
             margin: 0;
@@ -59,7 +82,6 @@
                },
                select: function( event, ui ) {
                   $( "#project" ).val( ui.item.label );
-                  $( "#project-id" ).val( ui.item.value );
                   $( "#project-description" ).html( ui.item.desc );
                   $( "#project-description" ).val( ui.item.desc );
                   return false;
@@ -79,7 +101,6 @@
    	<form action="test_autocomplete.php" class="subform" method="post">
       <div id = "project-label">Select a project (type "a" for a start):</div>
       <input id = "project">
-      <input type = "hidden" id = "project-id" name="projectid">
       <input id = "project-description" name="projectdescription">
       
       <button type="submit">SUBMIT</button>

@@ -271,6 +271,11 @@ $("#custname").on('input', function () {
 	  
 	}else{
 		//alert("Hi, option length is zero");
+		$('#addr').val("");
+		$('#phone').val("");
+		$('#fathername').val("");
+		$('#other_details').val("");
+		$('#cust_id').val("N.A.");
 	}
 	
 });
