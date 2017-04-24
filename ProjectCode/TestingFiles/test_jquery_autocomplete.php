@@ -3,29 +3,6 @@ include 'session_check_common.php';
 include 'connect_my_sql_db.php';
 ?>
 
-<?php 
-$sql="select cust_id, cust_name, father_name from customer"; 
-
-$cust_name = array();
-$father_name = array();
-$result=mysqli_query($conn, $sql);
-while($row=mysqli_fetch_assoc($result)) 
-{ 
-$title=$row['cust_name']; 
-$url=$row['father_name']; 
-
-$posts[] = array('customer'=> $title, 'father'=> $url);
-
-} 
-
-$response['posts'] = $posts;
-
-$fp = fopen('results.json', 'w');
-fwrite($fp, json_encode($response));
-fclose($fp);
-
-
-?> 
 <!doctype html>
 <html lang = "en">
    <head>
@@ -51,31 +28,35 @@ fclose($fp);
       <!-- Javascript -->
       <script>
          $(function() {
-            var projects = [
+            var projects;
+    		$.get( "get_customers.php", function( data ) {
+      		//$('#input').val( data );
+      		alert("data = "+data);
+      		projects = JSON.parse(data);
+      		alert("Projects = "+ projects);
+    		});
+            /*var projects = [
                {
-                  value: "java",
-                  label: "Java",
-                  desc: "write once run anywhere",
+                  "label": "Java",
+                  "desc": "write once run anywhere"
                },
                {
-                  value: "java",
-                  label: "Java",
-                  desc: "rohit here",
+                  "label": "Java",
+                  "desc": "rohit here"
                },
                {
-                  value: "jquery-ui",
-                  label: "jQuery UI",
-                  desc: "the official user interface library for jQuery",
+                  "label": "jQuery UI",
+                  "desc": "the official user interface library for jQuery"
                },
                {
-                  value: "Bootstrap",
-                  label: "Twitter Bootstrap",
-                  desc: "popular front end frameworks ",
+                  "label": "Twitter Bootstrap",
+                  "desc": "popular front end frameworks "
                }
-            ];
+            ];*/
             $( "#project" ).autocomplete({
                minLength: 0,
-               source: projects,
+               //source: projects,
+               source: "get_customers.php",
                focus: function( event, ui ) {
                   $( "#project" ).val( ui.item.label );
                      return false;
