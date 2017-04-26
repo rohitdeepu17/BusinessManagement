@@ -5,6 +5,41 @@ include 'connect_my_sql_db.php';
 
 <!DOCTYPE html>
 <html>
+<head>
+	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+      <!-- Javascript -->
+      <script>
+         $(function() {
+            $( "#custname" ).autocomplete({
+               minLength: 2,
+               source: "get_customers.php",
+               focus: function( event, ui ) {
+                  $( "#custname" ).val( ui.item.name );
+                     return false;
+               },
+               select: function( event, ui ) {
+                  $( "#custname" ).val( ui.item.name );
+                  $( "#fathername" ).val( ui.item.fname );
+                  $("#cust_id").val(ui.item.custid);
+                  $("#addr").val(ui.item.address);
+                  $("#phone").val(ui.item.phone);
+                  $("#other_details").val(ui.item.details);
+                  return false;
+               }
+            })
+				
+            .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+               return $( "<li>" )
+               .append( "<a>" + item.name + " s/o " + item.fname + "</a>" )
+               .appendTo( ul );
+            };
+         });
+      </script>
+</head>
 <style>
 </style>
 
@@ -15,12 +50,6 @@ include 'connect_my_sql_db.php';
 <nav id="navMenu" class="sidenav"></nav>
 <script src="nav_script.js"></script>
 
-<!-- These 3 for autocomplete-->
-<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-         rel = "stylesheet">
-<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
 <form action="db_add_bill.php" class="subform" method="post" id="submit_form_id">
 	<fieldset>
 	<legend style="font-size:22px">Creating an Invoice:</legend>
@@ -30,22 +59,7 @@ include 'connect_my_sql_db.php';
     		<input class="smallinputreadonly" type="text" placeholder="max 20 chars" name="cid" id="cust_id" maxlength="20" value="N.A." readonly="readonly" required>
     	
   			<label class="smalllabel"><b>Customer Name</b></label>
-    		<input class="smallinput" type="text" placeholder="max 20 chars" name="cname" id="custname" maxlength="20" list="suggestions" required>
-			<datalist id="suggestions">
-				<?php 
-					include 'connect_my_sql_db.php';
-					$qry = "SELECT cust_id, cust_name, father_name FROM customer;";
-
-					$res = mysqli_query($conn, $qry);
-					while($data = mysqli_fetch_assoc($res)){
-				?>
-					<!--<option value="<?php echo $data['cust_name'];?>" data-father="<?php echo $data['father_name'] ?>" data-id="<?php echo $data['cust_id'] ?>"><?php echo $data['father_name'];?></option>-->
-					<option value="<?php echo $data['cust_name'];?>" data-father="<?php echo $data['father_name'] ?>" data-custid="<?php echo $data['cust_id'] ?>"><?php echo $data['cust_name']." s/o ".$data['father_name'];?></option>
-				<?php
-					}
-					mysqli_free_result($res);
-				?>
-			</datalist>
+  			<input class="smallinput" type="text" placeholder="max 20 chars" name="cname" id="custname" maxlength="20" required>
 	
     		<label class="smalllabel"><b>Fathers Name</b></label>
     		<input class="smallinput" type="text" placeholder="max 20 chars" name="fname" maxlength="20" id="fathername"required>
@@ -127,8 +141,7 @@ include 'connect_my_sql_db.php';
   	</fieldset>
 </form>
 
-<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 
 <script>
 
@@ -234,53 +247,6 @@ $("#more_items").on("click", function () {
     $('#my_table_id tr:last td:third').val("Select Product");
     $('#my_table_id tr:last td:last').val(0.00);
 });
-
-$("#custname").on('input', function () {
-	//NEED TO LOOK FOR SOLUTION WHEN THERE ARE MANY PEOPLE WITH THE SAME NAME
-	var value = this.value;
-	var option = $('#suggestions').find("[value='" + value + "']");
-	var custid ="N.A";
-	if (option.length > 0) {
-	  var custid = option.data("custid");
-	  
-	  	var val = this.value;
-		if($('#suggestions').find('option').filter(function(){
-			return this.value.toUpperCase() === val.toUpperCase();        
-		}).length) {
-			//send ajax request
-			//alert("Hi"+val);
-			$.ajax({
-				type: "POST",
-				url: "get_cust_details.php",
-				data:'cust_id='+custid,
-				success: function(data){
-					//alert("success"+data);
-					data=JSON.parse(data);
-					//alert("Hello : "+data.address);
-					$('#addr').val(data.address);
-					$('#phone').val(data.phone);
-					$('#fathername').val(data.father_name);
-					$('#other_details').val(data.other_details);
-					$('#cust_id').val(data.cust_id);
-					//curRowUnitPrice.val(data);
-					//curRowAmount.val(data*curRowQtyVal);
-				}
-			});
-		}
-	  
-	  
-	}else{
-		//alert("Hi, option length is zero");
-		$('#addr').val("");
-		$('#phone').val("");
-		$('#fathername').val("");
-		$('#other_details').val("");
-		$('#cust_id').val("N.A.");
-	}
-	
-});
-
-
 
 </script>
 

@@ -1,8 +1,3 @@
-<?php
-include 'session_check_common.php';
-include 'connect_my_sql_db.php';
-?>
-
 <!doctype html>
 <html lang = "en">
    <head>
@@ -13,49 +8,11 @@ include 'connect_my_sql_db.php';
       <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
       
-      <style>
-         #project-label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 1em;
-         }
-         #project-description {
-            margin: 0;
-            padding: 0;
-         }
-      </style>
-      
       <!-- Javascript -->
       <script>
          $(function() {
-            var projects;
-    		$.get( "get_customers.php", function( data ) {
-      		//$('#input').val( data );
-      		alert("data = "+data);
-      		projects = JSON.parse(data);
-      		alert("Projects = "+ projects);
-    		});
-            /*var projects = [
-               {
-                  "label": "Java",
-                  "desc": "write once run anywhere"
-               },
-               {
-                  "label": "Java",
-                  "desc": "rohit here"
-               },
-               {
-                  "label": "jQuery UI",
-                  "desc": "the official user interface library for jQuery"
-               },
-               {
-                  "label": "Twitter Bootstrap",
-                  "desc": "popular front end frameworks "
-               }
-            ];*/
             $( "#project" ).autocomplete({
                minLength: 0,
-               //source: projects,
                source: "get_customers.php",
                focus: function( event, ui ) {
                   $( "#project" ).val( ui.item.label );
@@ -63,7 +20,6 @@ include 'connect_my_sql_db.php';
                },
                select: function( event, ui ) {
                   $( "#project" ).val( ui.item.label );
-                  $( "#project-description" ).html( ui.item.desc );
                   $( "#project-description" ).val( ui.item.desc );
                   return false;
                }
