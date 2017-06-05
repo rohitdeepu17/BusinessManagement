@@ -29,6 +29,8 @@ CREATE TABLE customer(
 		
 CREATE TABLE bill(
 		bill_no int PRIMARY KEY AUTO_INCREMENT,
+		copy_no int,
+		page_no int,
 		bill_date date,
 		amount real,
 		discount real,

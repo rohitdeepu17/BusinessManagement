@@ -75,6 +75,12 @@ include 'connect_my_sql_db.php';
     		<label class="smalllabel"><b>Other Details</b></label>
     		<!-- <input class="largeinput" type="text" placeholder="" name="cdetails" max-length="50"> -->
     		<textarea class="largeinput" name="cdetails" id="other_details" placeholder="ex : Complete address, C/O, alternate contact number, etc. max 50 chars" cols="40" rows="5" maxlength="50"></textarea>
+    		
+    		<label class="smalllabel"><b>Copy No.</b></label>
+    		<input class="smallinput" type="number" placeholder="copy" name="ccopy" id="copyno" required>
+    		
+    		<label class="smalllabel"><b>Page No.</b></label>
+    		<input class="smallinput" type="number" placeholder="page" name="cpage" id="pageno" required>
     	</div>
     	
     	<label class="smalllabel"><b>Invoice Date</b></label>

@@ -11,6 +11,8 @@ $bdate = $_POST['bdate'];
 $bamount = $_POST['total_amount'];
 $bdiscount = $_POST['total_discount'];
 $bpaid = $_POST['total_paid'];
+$bcopy = $_POST['ccopy'];
+$bpage = $_POST['cpage'];
 $profit = 0.0;
 
 print_r($_POST); 
@@ -66,9 +68,9 @@ else
 	
 	//add a new bill
 	$billno;
-	$qry = "INSERT INTO bill(cust_id, bill_date, amount, discount, paid_amount, profit)
+	$qry = "INSERT INTO bill(cust_id, bill_date, amount, discount, paid_amount, profit, copy_no, page_no)
 			    values('$cid', '$bdate', '$bamount', 
-			    	   '$bdiscount', '$bpaid', '$profit')";
+			    	   '$bdiscount', '$bpaid', '$profit', '$bcopy', '$bpage')";
 	echo $qry;
 	$que1 = mysqli_query($conn, $qry);
 	if (!$que1) {
