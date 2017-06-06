@@ -66,3 +66,29 @@ CREATE TABLE salepayment(
   		REFERENCES bill(bill_no) 
   		ON DELETE CASCADE
 		);
+		
+CREATE TABLE vendor(
+		vendor_id int PRIMARY KEY AUTO_INCREMENT,
+		vendor_name varchar(30),
+		address varchar(20),
+		phone bigint(10),
+		person_name varchar(20),
+		bank_account bigint(20),
+		ifsc_code varchar(11),
+		balance real,
+		other_details varchar(50)
+		);
+		
+CREATE TABLE vendor_transaction(
+		vt_id int PRIMARY KEY AUTO_INCREMENT,
+		vendor_id int,
+		transaction_date date,
+		transaction_amount real,
+		transaction_mode int,
+		transaction_type int,
+		transaction_details varchar(40),
+		CONSTRAINT vendor_vtfk_1 
+  		FOREIGN KEY (vendor_id) 
+  		REFERENCES vendor(vendor_id) 
+  		ON DELETE CASCADE
+		);

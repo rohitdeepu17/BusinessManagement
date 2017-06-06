@@ -8,12 +8,11 @@ document.getElementById("navMenu").innerHTML =
   '<li><a href="see_categories.php">See Categories</a></li>'+
   '<li><a href="add_product.php">Add Product</a></li>'+
   '<li><a href="see_products.php">See Products</a></li>'+
-  '<li><a href="#">Add Vendor</a></li>'+
-  '<li><a href="#">See Vendors</a></li>'+
-  '<li><a href="#">Add Vendor Payment</a></li>'+
+  '<li><a href="add_vendor.php">Add Vendor</a></li>'+
+  '<li><a href="see_vendors.php">See Vendors</a></li>'+
+  '<li><a href="add_vendor_payment.php">Add Vendor Payment</a></li>'+
   '<li><a href="#">See Vendor Payments</a></li>'+
   '<li><a href="#">Add Vendor Bill</a></li>'+
-  '<li><a href="#">Add Sale Payment</a></li>'+
   '<li><a href="log_out.php">Log Out</a></li>'+
 '</ul>';
 
