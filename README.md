@@ -6,3 +6,4 @@ This is a web development Business Management project. It facilitates Invoicing,
      - Selecting a category of products and then a particular product along with its unit price
      - Updating stock after creating/deleting an invoice
 - Keep record of payments received for an invoice, in multiple transactions, through different modes of payments.
+- Managing purchase and payments to vendors.
