@@ -4,6 +4,9 @@ include 'connect_my_sql_db.php';
 $catid = $_GET['catid'];
 $catname = null;
 $catdetails = null;
+$cathsncode = null;
+$catsgst = null;
+$catcgst = null;
 
 $qry = "SELECT * FROM category WHERE cat_id=".$_GET['catid'];
 
@@ -11,6 +14,9 @@ $qry = "SELECT * FROM category WHERE cat_id=".$_GET['catid'];
 		while($data = mysqli_fetch_assoc($res)){
 			$catname = $data['cat_name'];
 			$catdetails = $data['cat_details'];
+			$cathsncode = $data['cat_hsn_code'];
+			$catsgst = $data['cat_sgst'];
+			$catcgst = $data['cat_cgst'];
 		}
 
 ?>
@@ -40,6 +46,15 @@ function goBack(){
     	
     	<label class="smalllabel"><b>Category Name</b></label>
     	<input class="smallinput" type="text" placeholder="max 20 chars" name="cname" maxlength="20" value="<?php echo $catname;?>" required>
+    	
+    	<label class="smalllabel"><b>HSN Code</b></label>
+    	<input class="smallinput" type="text" placeholder="max 8 chars" name="hsncode" maxlength="8" value="<?php echo $cathsncode;?>" required>
+    	
+    	<label class="smalllabel"><b>SGST</b></label>
+    	<input class="smallinput" type="number" step="0.01" placeholder="ex: 56.50" name="sgst" value="<?php echo $catsgst;?>" required>
+    	
+    	<label class="smalllabel"><b>CGST</b></label>
+    	<input class="smallinput" type="number" step="0.01" placeholder="ex: 56.50" name="cgst" value="<?php echo $catcgst;?>" required>
 
     	<label class="smalllabel"><b>Category Details</b></label>
     	<!-- <input class="largeinput" type="text" placeholder="" name="cdetails" max-length="50"> -->

@@ -4,17 +4,20 @@ USE Business;
 
 CREATE TABLE category(
 		cat_id int PRIMARY KEY AUTO_INCREMENT,
-		cat_name varchar(20) UNIQUE,
-		cat_details varchar(50)
+		cat_name varchar(20) UNIQUE NOT NULL,
+		cat_details varchar(50),
+		cat_hsn_code varchar(8) NOT NULL,
+		cat_sgst real NOT NULL,
+		cat_cgst real NOT NULL
 		);
 		
 CREATE TABLE product(
 		prod_id int PRIMARY KEY AUTO_INCREMENT,
-		prod_name varchar(20) UNIQUE,
-		cat_name varchar(20) REFERENCES category(cat_name),
-		stock real,
-		unit_sale_price real,
-		unit_cost_price real,
+		prod_name varchar(20) UNIQUE NOT NULL,
+		cat_name varchar(20) NOT NULL REFERENCES category(cat_name),
+		stock real NOT NULL,
+		unit_sale_price real NOT NULL,
+		unit_cost_price real NOT NULL,
 		prod_details varchar(50)
 		);
 		

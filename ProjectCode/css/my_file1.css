@@ -63,6 +63,17 @@ body{
     margin:2px 0 10px 10px;
 }
 
+.smallerinputreadonly_hsn_code, .smallerinputreadonly_sgst, .smallerinputreadonly_cgst{
+    display: block;
+    font-size:15px;
+    padding:4px 2px;
+    border:solid 1px #aacfe4;
+    background-color: #d3d3d3;
+    width:40px;
+    height:20px;
+    margin:2px 0 10px 10px;
+}
+
 .total_discount, .paid_amount{
     display: block;
     font-size:15px;

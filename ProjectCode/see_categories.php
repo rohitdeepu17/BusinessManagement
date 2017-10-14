@@ -17,6 +17,9 @@ include 'connect_my_sql_db.php';
 <table class="seelist">
 	<tr>
     	<th>Category Name</th>
+    	<th>HSN Code</th>
+    	<th>SGST</th>
+    	<th>CGST</th>
     	<th>Category Details</th>
     	<th>Delete</th>
   	</tr>
@@ -27,7 +30,7 @@ include 'connect_my_sql_db.php';
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){
-			echo ("<tr><td><a href='category_details.php?catid=".$data['cat_id']."'>".$data['cat_name']."</a></td><td>".$data['cat_details']."</td><td><a href='delete_cat.php?catid=".$data['cat_id']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo ("<tr><td><a href='category_details.php?catid=".$data['cat_id']."'>".$data['cat_name']."</a></td><td>".$data['cat_hsn_code']."</a></td><td>".$data['cat_sgst']."</a></td><td>".$data['cat_cgst']."</a></td><td>".$data['cat_details']."</td><td><a href='delete_cat.php?catid=".$data['cat_id']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
 		}
 
 	?>

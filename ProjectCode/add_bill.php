@@ -92,6 +92,11 @@ include 'connect_my_sql_db.php';
        			<td>Sr. No.</td>
        			<td>Category</td>
        			<td>Product</td>
+       			<td>HSN Code</td>
+       			<td>SGST</td>
+       			<td>SGST Amt</td>
+       			<td>CGST</td>
+       			<td>CGST Amt</td>
        			<td>Quantity</td>
        			<td>Unit Price</td>
        			<td>Amount</td>
@@ -104,19 +109,27 @@ include 'connect_my_sql_db.php';
        				<option value="Select Category">Select Category</option>		
     				<?php 
 						include 'connect_my_sql_db.php';
-						$qry = "SELECT cat_id, cat_name FROM category;";
+						$qry = "SELECT cat_id, cat_name, cat_hsn_code, cat_sgst, cat_cgst FROM category;";
 
 						$res = mysqli_query($conn, $qry);
 						while($data = mysqli_fetch_row($res)){
-						echo ("<option value='$data[1]'>$data[1]</option>");
+						echo ("<option value='$data[1]' data-hsn='$data[2]' data-sgst=$data[3] data-cgst=$data[4]>$data[1]</option>");
 					}
 					?></td>
        			<td class="sub_item"><select style="width:150px;" class="it_id" name="products[]">
        				<option value="Select Product">Select Product</option>
 				</td>
-				<td><input class="qty" type="number" step="0.01" placeholder="ex: 12.50" name="qty[]" value="0.00" required onkeyup="updatePrice(this.value)"></td>
-       			<td><input class="unit_price" type="number" step="0.01" placeholder="ex: 56.50" name="unitprice[]" value="0.00" required onkeyup="updatePrice(this.value)"></td>
-       			<td><input class="pricecalc" type="number" step="0.01" placeholder="will be calculated" name="calculatedprice[]" value="0.00" required readonly="readonly"></td>
+				<td><input class="smallerinputreadonly_hsn_code" style="width:40px;" type="text" placeholder="max 8 chars" name="hsncode[]" maxlength="8" value="0000" readonly="readonly" required></td>
+				
+				<td><input class="smallerinputreadonly_sgst" style="width:20px;" type="number" step="0.01" placeholder="ex: 12.50" name="sgst[]" value="0.00" readonly="readonly" required></td>
+				<td><input class="smallerinputreadonly_sgst_amt" style="width:60px;" type="number" step="0.01" placeholder="ex: 12.50" name="sgstamt[]" value="0.00" readonly="readonly" required></td>
+				
+				<td><input class="smallerinputreadonly_cgst" style="width:20px;" type="number" step="0.01" placeholder="ex: 12.50" name="cgst[]" value="0.00" readonly="readonly" required></td>
+				<td><input class="smallerinputreadonly_cgst_amt" style="width:60px;" type="number" step="0.01" placeholder="ex: 12.50" name="cgstamt[]" value="0.00" readonly="readonly" required></td>
+				
+				<td><input class="qty" style="width:50px;" type="number" step="0.01" placeholder="ex: 12.50" name="qty[]" value="0.00" required onkeyup="updatePrice(this.value)"></td>
+       			<td><input class="unit_price" style="width:60px;" type="number" step="0.01" placeholder="ex: 56.50" name="unitprice[]" value="0.00" required onkeyup="updatePrice(this.value)"></td>
+       			<td><input class="pricecalc" style="width:70px;" type="number" step="0.01" placeholder="will be calculated" name="calculatedprice[]" value="0.00" required readonly="readonly"></td>
     		</tr>
     		
     		
@@ -158,7 +171,11 @@ $(".qty").on("keyup", function () {
 		unitprice_val = $tr.find('.unit_price').val();
 		amount = qty_val*unitprice_val;
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
-		alert("Hi sum = ".$('#my_table_id tr:last'));
+		sgst_percent = $tr.find('.smallerinputreadonly_sgst').val();
+		cgst_percent = $tr.find('.smallerinputreadonly_cgst').val();
+		$tr.find('.smallerinputreadonly_sgst_amt').attr("value", (sgst_percent*amount)/100);
+		$tr.find('.smallerinputreadonly_cgst_amt').attr("value", (cgst_percent*amount)/100);
+		//alert("Hi sum = ".$('#my_table_id tr:last'));
 });
 
 $(".unit_price").on("keyup", function () {
@@ -169,6 +186,10 @@ $(".unit_price").on("keyup", function () {
 		unitprice_val = $tr.find('.qty').val();
 		amount = qty_val*unitprice_val;
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
+		sgst_percent = $tr.find('.smallerinputreadonly_sgst').val();
+		cgst_percent = $tr.find('.smallerinputreadonly_cgst').val();
+		$tr.find('.smallerinputreadonly_sgst_amt').attr("value", (sgst_percent*amount)/100);
+		$tr.find('.smallerinputreadonly_cgst_amt').attr("value", (cgst_percent*amount)/100);
 });
 
 
@@ -177,20 +198,42 @@ $(document).ready(function () {
         var $this = $(this),
 		$tr = $this.closest('tr'),
 		gr_id = $this.find('option:selected').val(),
+		gr_hsn_code = $this.find('option:selected').data('hsn');
+		gr_sgst = $this.find('option:selected').data('sgst');
+		gr_cgst = $this.find('option:selected').data('cgst');
+		//alert("hsn = "+gr_hsn_code);
 		$subitem = $tr.find('.sub_item'),
 		$it_id = $tr.find('.it_id');
 		var curRowProduct = $(this).closest('tr').find(".it_id");
+		$(this).closest('tr').find(".smallerinputreadonly_hsn_code").attr("value", gr_hsn_code);
+		$(this).closest('tr').find(".smallerinputreadonly_sgst").attr("value", gr_sgst);
+		$(this).closest('tr').find(".smallerinputreadonly_cgst").attr("value", gr_cgst);
+		//alert("hsn = "+gr_hsn_code);
 		$.ajax({
 			type: "POST",
 			url: "get_products.php",
 			data:'cat_name='+gr_id,
 			success: function(data){
+				//alert("Hi data = "+data);
 				curRowProduct.html(data);
 			}
 		});
     });
     
     $("#my_table_id").on('keyup', '.qty', function () {
+       var calculated_total_sum = 0;
+     	//alert("Hello	");
+       $("#my_table_id .pricecalc").each(function () {
+           var get_textbox_value = $(this).val();
+           //alert("get textbox value = "+get_textbox_value)
+           if ($.isNumeric(get_textbox_value)) {
+              calculated_total_sum += parseFloat(get_textbox_value);
+              }                  
+        });
+        $('.total_amount').val(calculated_total_sum.toFixed(2));
+    });
+    
+    $("#my_table_id").on('keyup', '.unit_price', function () {
        var calculated_total_sum = 0;
      	//alert("Hello	");
        $("#my_table_id .pricecalc").each(function () {
