@@ -93,9 +93,9 @@ include 'connect_my_sql_db.php';
        			<td>Category</td>
        			<td>Product</td>
        			<td>HSN Code</td>
-       			<td>SGST</td>
+       			<td>SGST Rate</td>
        			<td>SGST Amt</td>
-       			<td>CGST</td>
+       			<td>CGST Rate</td>
        			<td>CGST Amt</td>
        			<td>Quantity</td>
        			<td>Unit Price</td>
@@ -121,10 +121,10 @@ include 'connect_my_sql_db.php';
 				</td>
 				<td><input class="smallerinputreadonly_hsn_code" style="width:40px;" type="text" placeholder="max 8 chars" name="hsncode[]" maxlength="8" value="0000" readonly="readonly" required></td>
 				
-				<td><input class="smallerinputreadonly_sgst" style="width:20px;" type="number" step="0.01" placeholder="ex: 12.50" name="sgst[]" value="0.00" readonly="readonly" required></td>
+				<td><input class="smallerinputreadonly_sgst" style="width:60px;" type="number" step="0.01" placeholder="ex: 12.50" name="sgst[]" value="0.00" readonly="readonly" required></td>
 				<td><input class="smallerinputreadonly_sgst_amt" style="width:60px;" type="number" step="0.01" placeholder="ex: 12.50" name="sgstamt[]" value="0.00" readonly="readonly" required></td>
 				
-				<td><input class="smallerinputreadonly_cgst" style="width:20px;" type="number" step="0.01" placeholder="ex: 12.50" name="cgst[]" value="0.00" readonly="readonly" required></td>
+				<td><input class="smallerinputreadonly_cgst" style="width:60px;" type="number" step="0.01" placeholder="ex: 12.50" name="cgst[]" value="0.00" readonly="readonly" required></td>
 				<td><input class="smallerinputreadonly_cgst_amt" style="width:60px;" type="number" step="0.01" placeholder="ex: 12.50" name="cgstamt[]" value="0.00" readonly="readonly" required></td>
 				
 				<td><input class="qty" style="width:50px;" type="number" step="0.01" placeholder="ex: 12.50" name="qty[]" value="0.00" required onkeyup="updatePrice(this.value)"></td>
