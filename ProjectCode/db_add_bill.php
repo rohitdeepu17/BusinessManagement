@@ -30,6 +30,8 @@ $products = $_POST['products'];
 $qtys = $_POST['qty'];
 $unitprices = $_POST['unitprice'];
 $calculatedprices = $_POST['calculatedprice'];
+$sgst_percentages = $_POST['sgst'];
+$cgst_percentages = $_POST['cgst'];
 
 if(empty($products)) 
 {
@@ -105,9 +107,9 @@ else
 	
 	$n = count($products);
 	for($i=0;$i<$n;$i++){
-		echo $categories[$i]." ".$products[$i]." ".$qtys[$i]." ".$unitprices[$i]." ".$calculatedprices[$i]."<br>";
-		$qry = "INSERT INTO billcontent(bill_no, prod_id, qty, unit_price)
-			    values('$billno', '$products[$i]', '$qtys[$i]', '$unitprices[$i]')";
+		echo $categories[$i]." ".$products[$i]." ".$qtys[$i]." ".$unitprices[$i]." ".$calculatedprices[$i]." ".$sgst_percentages[$i]." ".$cgst_percentages[$i]."<br>";
+		$qry = "INSERT INTO billcontent(bill_no, prod_id, qty, unit_price, sgst_percent, cgst_percent)
+			    values('$billno', '$products[$i]', '$qtys[$i]', '$unitprices[$i]', '$sgst_percentages[$i]', '$cgst_percentages[$i]')";
 		echo $qry;
 		$que1 = mysqli_query($conn, $qry);
 		if (!$que1) {
