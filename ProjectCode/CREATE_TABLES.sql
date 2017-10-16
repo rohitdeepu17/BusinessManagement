@@ -47,6 +47,8 @@ CREATE TABLE billcontent(
 		prod_id int,
 		qty real,
 		unit_price real,
+		sgst_percent real,
+		cgst_percent real,
 		PRIMARY KEY(bill_no, prod_id),
 		CONSTRAINT bill_bcfk_1 
   		FOREIGN KEY (bill_no) 

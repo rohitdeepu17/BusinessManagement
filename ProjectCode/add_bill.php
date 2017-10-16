@@ -173,8 +173,11 @@ $(".qty").on("keyup", function () {
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
 		sgst_percent = $tr.find('.smallerinputreadonly_sgst').val();
 		cgst_percent = $tr.find('.smallerinputreadonly_cgst').val();
-		$tr.find('.smallerinputreadonly_sgst_amt').attr("value", (sgst_percent*amount)/100);
-		$tr.find('.smallerinputreadonly_cgst_amt').attr("value", (cgst_percent*amount)/100);
+		base_price = amount/(1+sgst_percent/100+cgst_percent/100);
+		sgst_amount = (sgst_percent*base_price)/100;
+		cgst_amount = (cgst_percent*base_price)/100;
+		$tr.find('.smallerinputreadonly_sgst_amt').attr("value", sgst_amount.toFixed(2));
+		$tr.find('.smallerinputreadonly_cgst_amt').attr("value", cgst_amount.toFixed(2));
 		//alert("Hi sum = ".$('#my_table_id tr:last'));
 });
 
@@ -188,8 +191,11 @@ $(".unit_price").on("keyup", function () {
 		$(this).closest('tr').find('.pricecalc').attr("value", amount);
 		sgst_percent = $tr.find('.smallerinputreadonly_sgst').val();
 		cgst_percent = $tr.find('.smallerinputreadonly_cgst').val();
-		$tr.find('.smallerinputreadonly_sgst_amt').attr("value", (sgst_percent*amount)/100);
-		$tr.find('.smallerinputreadonly_cgst_amt').attr("value", (cgst_percent*amount)/100);
+		base_price = amount/(1+sgst_percent/100+cgst_percent/100);
+		sgst_amount = (sgst_percent*base_price)/100;
+		cgst_amount = (cgst_percent*base_price)/100;
+		$tr.find('.smallerinputreadonly_sgst_amt').attr("value", sgst_amount.toFixed(2));
+		$tr.find('.smallerinputreadonly_cgst_amt').attr("value", cgst_amount.toFixed(2));
 });
 
 
