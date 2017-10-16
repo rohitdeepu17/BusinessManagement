@@ -130,11 +130,20 @@ while($data = mysqli_fetch_assoc($res)){
    $this->Cell($w[2],6,$hsncode,'LR',0,'R');
    $this->Cell($w[3],6,$data['qty'],'LR',0,'R');
    //$this->Cell($w[3],6,number_format($data['unit_price']),'LR',0,'R');
-   $this->Cell($w[4],6,$data['unit_price'],'LR',0,'R');
-   $this->Cell($w[5],6,$data['sgst_percent'],'LR',0,'R');
-   $this->Cell($w[6],6,$data['cgst_percent'],'LR',0,'R');
+   
    $amount = $data['qty']*$data['unit_price'];
    $total_amount = $total_amount + $amount;
+   
+   $base_price = $amount/(1+$data['sgst_percent']/100+$data['cgst_percent']/100);
+   $sgst_amount = ($data['sgst_percent']*$base_price)/100;
+   $cgst_amount = ($data['cgst_percent']*$base_price)/100;
+   //$this->Cell($w[5],6,$data['sgst_percent'],'LR',0,'R');
+   //$this->Cell($w[4],6,$data['unit_price'],'LR',0,'R');
+   $this->Cell($w[4],6,number_format((float)$base_price, 2, '.', ''),'LR',0,'R');
+   $this->Cell($w[5],6,number_format((float)$sgst_amount, 2, '.', ''),'LR',0,'R');
+   //$this->Cell($w[5],6,'@'.$data['sgst_percent'].'%='.$sgst_amount,'LR',0,'R');
+   //$this->Cell($w[6],6,$data['cgst_percent'],'LR',0,'R');
+   $this->Cell($w[5],6,number_format((float)$cgst_amount, 2, '.', ''),'LR',0,'R');
    //$this->Cell($w[4],6,number_format($amount),'LR',0,'R');
    $this->Cell($w[7],6,$amount,'LR',0,'R');
    $this->Ln();
