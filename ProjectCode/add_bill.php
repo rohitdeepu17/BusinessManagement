@@ -237,6 +237,9 @@ $(document).ready(function () {
               }                  
         });
         $('.total_amount').val(calculated_total_sum.toFixed(2));
+        var balance = $('.total_amount').val()-$('.paid_amount').val()-$('.total_discount').val();
+    	//alert("changed paid amount, balance = "+balance);
+    	$('.balance_amount').val(balance.toFixed(2));
     });
     
     $("#my_table_id").on('keyup', '.unit_price', function () {
@@ -250,6 +253,9 @@ $(document).ready(function () {
               }                  
         });
         $('.total_amount').val(calculated_total_sum.toFixed(2));
+        var balance = $('.total_amount').val()-$('.paid_amount').val()-$('.total_discount').val();
+    	//alert("changed paid amount, balance = "+balance);
+    	$('.balance_amount').val(balance.toFixed(2));
     });
     
     $('.paid_amount').keyup(function(){
