@@ -125,7 +125,10 @@ else
             	echo "stock not updated";
 		}
 	}
-	header('Location: see_bills.php');
+	if($bamount-$bdiscount-$bpaid>0.10)
+		header('Location: see_bills.php');
+	else
+		header('Location: see_settled_bills.php');
 }
 
 //http://www.fpdf.org/
