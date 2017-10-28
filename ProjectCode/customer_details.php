@@ -38,8 +38,10 @@ function toggleShowHide(){
 	var x = document.getElementById('settled_bills');
     if (x.style.display === 'none') {
         x.style.display = 'block';
+        document.getElementById("toggle_btn_settled").innerHTML = "Hide Settled Bills";
     } else {
         x.style.display = 'none';
+        document.getElementById("toggle_btn_settled").innerHTML = "Show Settled Bills";
     }
 }
 </script>
@@ -82,12 +84,13 @@ function toggleShowHide(){
 	<tr>
     	<th>Bill No.</th>
     	<th>Bill Date</th>
-    	<th>Bill Amount</th>
+    	<th>Bill Amt</th>
     	<th>Discount</th>
-    	<th>Paid Amount</th>
+    	<th>Paid Amt</th>
     	<th>Balance</th>
     	<th>Delete</th>
     	<th>Download</th>
+    	<th>Download Tax</th>
   	</tr>
   	
 	<?php 
@@ -99,24 +102,24 @@ function toggleShowHide(){
 			echo ("<tr><td>".$data['bill_no']."</td>");
 				$balanceamount = $data['amount']-$data['discount']-$data['paid_amount'];
 				echo("<td>".$data['bill_date']."</td><td>".round($data['amount'],2)."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".round($balanceamount,2));
-			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:30px; height:30px;'></a></td><td><a href='download_bill.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:30px; height:30px;'></a></td><td><a href='download_bill_tax.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:30px; height:30px;'></a></td></tr>");
 		}
 
 	?>
 </table>
 
-<button type="button" onclick="toggleShowHide()">Settled Bills</button>
+<button id="toggle_btn_settled" type="button" style='width:150px;' onclick="toggleShowHide()">Show Settled Bills</button>
 
 <table id="settled_bills" style="display:none">
 	<tr>
     	<th>Bill No.</th>
     	<th>Bill Date</th>
-    	<th>Bill Amount</th>
+    	<th>Bill Amt</th>
     	<th>Discount</th>
-    	<th>Paid Amount</th>
-    	<th>Balance</th>
+    	<th>Paid Amt</th>
     	<th>Delete</th>
     	<th>Download</th>
+    	<th>Download Tax</th>
   	</tr>
   	
 	<?php 
@@ -127,8 +130,9 @@ function toggleShowHide(){
 		while($data = mysqli_fetch_assoc($res)){
 			echo ("<tr><td>".$data['bill_no']."</td>");
 				$balanceamount = $data['amount']-$data['discount']-$data['paid_amount'];
-				echo("<td>".$data['bill_date']."</td><td>".round($data['amount'],2)."</td><td>".$data['discount']."</td><td>".$data['paid_amount']."</td><td>".round($balanceamount,2));
-			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+				echo("<td>".$data['bill_date']."</td><td>".round($data['amount'],2)."</td><td>".$data['discount']."</td><td>".$data['paid_amount']);
+			//echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:40px; height:40px;'></a></td><td><a href='download_bill.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:40px; height:40px;'></a></td></tr>");
+			echo("</td><td><a href='delete_bill.php?billno=".$data['bill_no']."'><img src='delete1.png' alt='' style='width:30px; height:30px;'></a></td><td><a href='download_bill.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:30px; height:30px;'></a></td><td><a href='download_bill_tax.php?billno=".$data['bill_no']."' target='_blank'><img src='download_image.png' alt='' style='width:30px; height:30px;'></a></td></tr>");
 		}
 
 	?>

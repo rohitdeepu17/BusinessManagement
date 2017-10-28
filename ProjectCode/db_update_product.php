@@ -9,7 +9,7 @@ $punitsaleprice = $_POST['punitsaleprice'];
 $pdetails 		= $_POST['pdetails'];
 
 
-$qry = "UPDATE product ". "SET prod_name = '$pname', "." prod_details = '$pdetails', "." cat_name = '$categories', ".
+$qry = "UPDATE product ". "SET prod_name = '$pname', "." prod_details = '$pdetails', "." cat_id = $categories, ".
 		" stock = $pstock, "." unit_cost_price = $punitcostprice, "." unit_sale_price = $punitsaleprice ".
                "WHERE prod_id = $pid" ;
 //$qry = "UPDATE category ". "SET cat_name = '$cat_name' "."WHERE cat_id = $cat_id" ;

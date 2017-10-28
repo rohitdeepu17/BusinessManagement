@@ -27,7 +27,7 @@ include 'connect_my_sql_db.php';
   
   <?php 
 		include 'connect_my_sql_db.php';
-		$qry = "SELECT * FROM product;";
+		$qry = "SELECT P.*, C.cat_name FROM product P, category C WHERE P.cat_id = C.cat_id;";
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){

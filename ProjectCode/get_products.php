@@ -2,10 +2,10 @@
 include 'connect_my_sql_db.php';
 //$message = "inside get products";
 //	echo "<script type='text/javascript'>alert('$message');</script>";
-if(!empty($_POST["cat_name"])) {
+if(!empty($_POST["cat_id"])) {
 	//$message = "inside get products with non empty cat_name";
 	//echo "<script type='text/javascript'>alert('$message');</script>";
-	$qry ="SELECT * FROM product WHERE cat_name = '" . $_POST["cat_name"] . "'";
+	$qry ="SELECT * FROM product WHERE cat_id = '" . $_POST["cat_id"] . "'";
 	$results = mysqli_query($conn, $qry);
 	echo('<option value="">Select Product</option>');
 	foreach($results as $prod) {

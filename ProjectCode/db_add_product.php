@@ -8,7 +8,7 @@ $punitcostprice = $_POST['punitcostprice'];
 $punitsaleprice = $_POST['punitsaleprice'];
 $pdetails 		= $_POST['pdetails'];
 
-$qry         = "INSERT INTO product(prod_name, cat_name, stock, unit_cost_price, 
+$qry         = "INSERT INTO product(prod_name, cat_id, stock, unit_cost_price, 
 				unit_sale_price, prod_details)
 			    values('$pname', '$categories', '$pstock', 
 			    	   '$punitcostprice', '$punitsaleprice', '$pdetails')";

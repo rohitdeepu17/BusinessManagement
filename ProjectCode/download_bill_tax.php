@@ -108,17 +108,17 @@ while($data = mysqli_fetch_assoc($res)){
    $row_count = $row_count + 1;
    $this->Cell($w[0],6,number_format($row_count).".",'LR', 0, 'R');
    
-    $qry1 = "SELECT prod_name, cat_name FROM product WHERE prod_id = ".$data['prod_id'].";";
+    $qry1 = "SELECT prod_name, cat_id FROM product WHERE prod_id = ".$data['prod_id'].";";
 	//echo $qry1;
 	$res1 = mysqli_query($conn, $qry1);
 	$prodname = null;
-	$catname = null;
+	$catid = null;
 	while($data1 = mysqli_fetch_assoc($res1)){
 		$prodname = $data1['prod_name'];
-		$catname = $data1['cat_name'];
+		$catid = $data1['cat_id'];
 	}
 	
-	$qry2 = "SELECT cat_hsn_code FROM category WHERE cat_name = '".$catname."';";
+	$qry2 = "SELECT cat_hsn_code FROM category WHERE cat_id = '".$catid."';";
 	$res2 = mysqli_query($conn, $qry2);
 	$hsncode = null;
 	while($data2 = mysqli_fetch_assoc($res2)){

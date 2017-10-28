@@ -113,7 +113,7 @@ include 'connect_my_sql_db.php';
 
 						$res = mysqli_query($conn, $qry);
 						while($data = mysqli_fetch_row($res)){
-						echo ("<option value='$data[1]' data-hsn='$data[2]' data-sgst=$data[3] data-cgst=$data[4]>$data[1]</option>");
+						echo ("<option value='$data[0]' data-hsn='$data[2]' data-sgst=$data[3] data-cgst=$data[4]>$data[1]</option>");
 					}
 					?></td>
        			<td class="sub_item"><select style="width:150px;" class="it_id" name="products[]">
@@ -218,7 +218,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "get_products.php",
-			data:'cat_name='+gr_id,
+			data:'cat_id='+gr_id,
 			success: function(data){
 				//alert("Hi data = "+data);
 				curRowProduct.html(data);

@@ -17,7 +17,7 @@ while($data = mysqli_fetch_assoc($res)){
 	$prodstock = $data['stock'];
 	$produnitsaleprice = $data['unit_sale_price'];
 	$produnitcostprice = $data['unit_cost_price'];
-	$prodcat = $data['cat_name'];
+	$prodcat = $data['cat_id'];
 }
 
 ?>
@@ -53,14 +53,14 @@ function goBack(){
     				
     	<?php 
 		include 'connect_my_sql_db.php';
-		$qry = "SELECT cat_name FROM category;";
+		$qry = "SELECT cat_id, cat_name FROM category;";
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_row($res)){
-			if(!strcmp($prodcat, $data[0]))
-				echo ("<option value='$data[0]' selected>$data[0]</option>");
+			if($prodcat == $data[0])
+				echo ("<option value='$data[0]' selected>$data[1]</option>");
 			else
-				echo ("<option value='$data[0]'>$data[0]</option>");
+				echo ("<option value='$data[0]'>$data[1]</option>");
 		}
 		?>
 		

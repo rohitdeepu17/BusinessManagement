@@ -26,11 +26,11 @@ include 'connect_my_sql_db.php';
     				
     	<?php 
 		include 'connect_my_sql_db.php';
-		$qry = "SELECT cat_name FROM category;";
+		$qry = "SELECT cat_id, cat_name FROM category;";
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_row($res)){
-			echo ("<option value='$data[0]'>$data[0]</option>");
+			echo ("<option value='$data[0]'>$data[1]</option>");
 		}
 
 		?>
