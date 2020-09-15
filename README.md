@@ -7,3 +7,6 @@ This is a web development Business Management project. It facilitates Invoicing,
      - Updating stock after creating/deleting an invoice
 - Keep record of payments received for an invoice, in multiple transactions, through different modes of payments.
 - Managing purchase and payments to vendors.
+
+A Quick demo of this app is available here:-
+https://youtu.be/gpoLfRv7-ak
