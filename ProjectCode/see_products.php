@@ -27,7 +27,7 @@ include 'connect_my_sql_db.php';
   
   <?php 
 		include 'connect_my_sql_db.php';
-		$qry = "SELECT P.*, C.cat_name FROM product P, category C WHERE P.cat_id = C.cat_id;";
+		$qry = "SELECT P.*, C.cat_name FROM product P, category C WHERE P.cat_id = C.cat_id ORDER BY C.cat_id, P.prod_name;";
 
 		$res = mysqli_query($conn, $qry);
 		while($data = mysqli_fetch_assoc($res)){
@@ -38,6 +38,7 @@ include 'connect_my_sql_db.php';
 	?>
 </table>
 
+<br><a href="download_products_list.php" target="_blank" class="seelist">Download as pdf</a><br><br>
 
 </body>
 </html>
