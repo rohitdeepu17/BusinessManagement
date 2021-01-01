@@ -81,5 +81,5 @@ $pdf->SetFont('Arial','',10);
 $pdf->AddPage('L');
 $pdf->ImprovedTable($header, $conn);
 //Need to look better logic to take understandable date/time
-$pdf->Output("", "Vendors_".date("Y-m-d",time()).".pdf", false);
+$pdf->Output("", "ProductsList_".date("Y-m-d",time()).".pdf", false);
 ?>
